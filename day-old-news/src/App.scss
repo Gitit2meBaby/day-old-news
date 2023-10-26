@@ -1,0 +1,236 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+// VARIABLES
+$white-text: white;
+$light-gray: rgb(209, 208, 208);
+$med-gray: rgb(142, 142, 142);
+$dark-gray: rgb(113, 113, 113);
+$black: rgb(4, 4, 4);
+$btn-primary: #259ff5;
+$heading-font: 'Roboto Slab', serif;
+$bold-red: #ba1313;
+
+// MIX-INS
+%centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+%aligned {
+    display: flex;
+    align-items: center;
+}
+
+%spaced {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+%column {
+    display: flex;
+    flex-direction: column;
+}
+
+// HEADER
+.header-top {
+    @extend %spaced;
+    padding: .5rem 2rem;
+    background-color: rgb(36, 36, 36);
+    color: $white-text;
+
+    p,
+    a {
+        text-decoration: none;
+        color: $white-text;
+        font-size: .8rem;
+    }
+}
+
+.gradient-border {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(to right,
+            violet 0%, violet 3%,
+            blue 3%, blue 7%,
+            yellow 7%, yellow 12%,
+            orange 12%, orange 18%,
+            red 18%, red 25%,
+            green 25%, green 33%,
+            violet 33%, violet 36%,
+            orange 36%, orange 42%,
+            indigo 42%, indigo 50%,
+            red 50%, red 60%,
+            yellow 60%, yellow 62%,
+            orange 62%, orange 70%,
+            green 70%, green 80%,
+            blue 80%, blue 90%,
+            orange 90%, orange 100%)
+}
+
+
+.header-main {
+    @extend %spaced;
+    padding: 1rem 5vw;
+}
+
+.btn-container button {
+    color: $white-text;
+    background-color: $btn-primary;
+    border: none;
+    border-radius: .3rem;
+    padding: 0.5rem 1rem;
+}
+
+.header-nav {
+    @extend %spaced;
+    padding: 1rem 2rem;
+    border-top: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+
+    .header-links a {
+        color: $black;
+        text-decoration: none;
+        padding: 0 1rem;
+    }
+}
+
+// MAIN SECTION LAYOUTS
+.container {
+    padding: 2rem 5rem;
+    max-width: 900px;
+}
+
+.main-articles {
+    @extend %column
+}
+
+.grid-articles,
+.top-articles {
+    display: grid;
+    grid-template-columns: 1fr 50%;
+    border-bottom: 1px solid $light-gray;
+    column-gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.top-articles article:last-child {
+    border-bottom: none;
+}
+
+
+// ARTICLES
+.category-title {
+    color: $dark-gray;
+    text-transform: uppercase;
+    font-size: .8rem;
+    margin: 0;
+}
+
+.time-text {
+    color: $med-gray;
+    font-size: .8rem;
+    margin: 0;
+}
+
+.type-title {
+    @extend %aligned;
+    gap: 1rem;
+}
+
+.text-btn {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin-top: 1rem;
+    align-self: flex-end;
+    font-weight: 800;
+}
+
+p {
+    line-height: 1.4rem;
+    margin: 0;
+    color: $dark-gray;
+}
+
+h2 {
+    color: $black;
+    font-family: $heading-font;
+    margin: 0;
+    padding: .5rem 0;
+}
+
+h2:hover {
+    text-decoration: underline;
+}
+
+// FEATURED ARTICLE
+.featured {
+    @extend %column;
+    width: 352px;
+    padding-bottom: 1.5rem;
+    grid-row: span 3;
+
+    img {
+        max-height: 264px;
+        max-width: 352px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+.bold-red {
+    color: $bold-red;
+    letter-spacing: .2rem;
+    padding-bottom: 0.3rem;
+    font-weight: 800;
+}
+
+// SECONDARY ARTICLE
+.secondary {
+    max-width: 352px;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $light-gray;
+
+    img {
+        max-width: 143px;
+        max-height: 107.25px;
+    }
+
+    h2 {
+        font-size: 1rem;
+        padding: .5rem 0 .8rem 0;
+    }
+
+    p {
+        line-height: 1.2rem;
+    }
+}
+
+.secondary-content {
+    display: flex;
+    gap: .5rem;
+
+    p {
+        margin: 0;
+    }
+}
