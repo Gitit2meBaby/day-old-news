@@ -1,13 +1,12 @@
-import React from 'react';
 import { useGlobalContext } from '../context';
 
 export const Articles = () => {
     const { headlines, timeAgo, truncateText } = useGlobalContext();
-    console.log(headlines);
 
     // check for API returns without a description
     const filteredArticles = (headlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
+    console.log(headlines)
 
     return (
         <div className='container'>

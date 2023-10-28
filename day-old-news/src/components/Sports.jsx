@@ -1,16 +1,15 @@
 import { useState, useCallback, useRef } from 'react'
 import { useGlobalContext } from '../context';
 
-
-export const Business = () => {
+export const Sports = () => {
     const { truncateText, timeAgo, useIntersectionObserver } = useGlobalContext();
-    const [localCategoryArticles, setLocalCategoryArticles] = useState([]);
+    const [sportsHeadlines, setSportsHeadlines] = useState([]);
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
 
     const onIntersect = () => {
         if (!apiCallMade) {
-            fetchCategoryArticles('business');
+            fetchCategoryArticles('sports');
             setApiCallMade(true);
         }
     };
@@ -18,7 +17,7 @@ export const Business = () => {
     useIntersectionObserver(targetElement, onIntersect);
 
     // check for API returns without a description
-    const filteredArticles = (localCategoryArticles.articles || []).filter((article) => article.description !== null && article.description !== undefined);
+    const filteredArticles = (sportsHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
     const handleClick = (keyword) => {
         fetchCategoryArticles(keyword)
@@ -29,8 +28,8 @@ export const Business = () => {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
             const response = await fetch(url);
             const categoryData = await response.json();
-            setLocalCategoryArticles(categoryData);
-            console.log('business-fetched')
+            setSportsHeadlines(categoryData);
+            console.log('sports fetched')
         } catch (error) {
             console.log(error);
         }
@@ -40,20 +39,18 @@ export const Business = () => {
 
     return (
         <section ref={targetElement} className='category-container'>
-            <header className='category-header'>
+            <header className='category-header green-header'>
                 <div>
-                    <h2>Business</h2>
+                    <h2>Sports</h2>
                     <svg stroke="#ba1313" fill="#ba1313" strokeWidth="1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L10.293 8 4.646 2.354a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
                 </div>
                 <div className="category-nav">
                     <ul>
-                        <li onClick={() => handleClick('economy')}>Economy</li>
-                        <li onClick={() => handleClick('corporate')}>Corporate</li>
-                        <li onClick={() => handleClick('investment')}>Investment</li>
-                        <li onClick={() => handleClick('trade')}>Trade</li>
-                        <li onClick={() => handleClick('retail')}>Retail</li>
-                        <li onClick={() => handleClick('bitcoin')}>Bitcoin</li>
-                        <li onClick={() => handleClick('marketing')}>Marketing</li>
+                        <li onClick={() => handleClick('movies')}>Movies</li>
+                        <li onClick={() => handleClick('celebrity')}>Celebrity</li>
+                        <li onClick={() => handleClick('music')}>Music</li>
+                        <li onClick={() => handleClick('books')}>Books</li>
+                        <li onClick={() => handleClick('awards')}>Awards</li>
                     </ul>
                 </div>
             </header>

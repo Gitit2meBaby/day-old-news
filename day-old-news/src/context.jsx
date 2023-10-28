@@ -9,11 +9,24 @@ const AppProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [headlines, setHeadlines] = useState([]);
     const [categoryArticles, setCategoryArticles] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState('');
 
-    const fetchHeadlines = useCallback(async () => {
+    //searchbar in header function to pass state
+    const updateSearchKeyword = (keyword) => {
+        setSearchKeyword(keyword);
+    };
+
+    useEffect(() => {
+        if (searchKeyword) {
+            fetchHeadlines(searchKeyword);
+        }
+    }, [searchKeyword]);
+
+    //API call for latest news to be displayed top of page
+    const fetchHeadlines = useCallback(async (searchKeyword) => {
         setLoading(true);
         try {
-            const response = await fetch(topHeadlinesUrl);
+            const response = await fetch(searchKeyword ? `https://newsapi.org/v2/everything?q=${searchKeyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0` : topHeadlinesUrl);
             const headlineData = await response.json();
             setHeadlines(headlineData);
             setLoading(false);
@@ -23,6 +36,7 @@ const AppProvider = ({ children }) => {
         }
     }, []);
 
+    //API call for the miniArticles that start at top of page (try to reuse this function throughout as it works from a keyword)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
@@ -34,6 +48,7 @@ const AppProvider = ({ children }) => {
         }
     }, []);
 
+    //Wait for both to load before showing content
     useEffect(() => {
         const fetchAllData = async () => {
             await Promise.all([fetchHeadlines(), fetchCategoryArticles('technology')]);
@@ -41,7 +56,35 @@ const AppProvider = ({ children }) => {
         };
 
         fetchAllData();
-    }, []);
+    }, [searchKeyword]);
+
+    //reusable interaction observer to put on subsequent API loads lower on the page
+    const useIntersectionObserver = (targetElement, onIntersect, rootMargin = '-200px') => {
+        useEffect(() => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            onIntersect();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { rootMargin }
+            );
+
+            if (targetElement.current) {
+                observer.observe(targetElement.current);
+            }
+
+            return () => {
+                if (targetElement.current) {
+                    observer.unobserve(targetElement.current);
+                }
+            };
+        }, [targetElement, onIntersect, rootMargin]);
+    }
+
 
     // change the publishedAt integer into something nice
     function timeAgo(publishedDate) {
@@ -78,15 +121,12 @@ const AppProvider = ({ children }) => {
         }
     }
 
-
     return (
-        <AppContext.Provider value={{ loading, setLoading, headlines, categoryArticles, setCategoryArticles, timeAgo, truncateText, fetchCategoryArticles }}>
+        <AppContext.Provider value={{ loading, setLoading, headlines, setHeadlines, fetchHeadlines, categoryArticles, setCategoryArticles, timeAgo, truncateText, fetchCategoryArticles, useIntersectionObserver, searchKeyword, updateSearchKeyword }}>
             {children}
         </AppContext.Provider>
     );
 };
-
-
 
 export const useGlobalContext = () => {
     return useContext(AppContext)

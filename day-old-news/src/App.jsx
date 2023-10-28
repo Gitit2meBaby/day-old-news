@@ -5,6 +5,13 @@ import { Header } from './components/Header'
 import { MiniArticles } from './components/MiniArticles'
 import { Business } from './components/Business'
 import { AddRoll } from './components/AddRoll'
+import { Entertainment } from './components/Entertainment'
+import { RealEstate } from './components/RealEstate'
+import { Health } from './components/Health'
+import { Science } from './components/Science'
+import { BannerAdd } from './components/BannerAdd'
+import { Technology } from './components/Technology'
+import { Sports } from './components/Sports'
 function App() {
 
   return (
@@ -16,6 +23,14 @@ function App() {
         <AddRoll />
       </section>
       <Business />
+      <Entertainment />
+      <RealEstate />
+      <Health />
+      <Science />
+      <BannerAdd />
+      <Technology />
+      <Sports />
+
     </>
   )
 }

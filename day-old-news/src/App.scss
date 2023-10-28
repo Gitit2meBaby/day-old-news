@@ -20,10 +20,11 @@ $white-text: white;
 $light-gray: rgb(209, 208, 208);
 $med-gray: rgb(142, 142, 142);
 $dark-gray: rgb(113, 113, 113);
-$black: rgb(4, 4, 4);
+$black: #040404;
 $btn-primary: #259ff5;
 $heading-font: 'Roboto Slab', serif;
 $bold-red: #ba1313;
+$blue: #007bff;
 
 // MIX-INS
 %centered {
@@ -47,6 +48,7 @@ $bold-red: #ba1313;
     display: flex;
     flex-direction: column;
 }
+
 
 // HEADER
 .header-top {
@@ -84,31 +86,163 @@ $bold-red: #ba1313;
             orange 90%, orange 100%)
 }
 
-
+// MAIN HEADER
 .header-main {
     @extend %spaced;
-    padding: 1rem 5vw;
+    padding: 1rem 6rem;
 }
 
-.btn-container button {
+.primary-btn {
     color: $white-text;
     background-color: $btn-primary;
     border: none;
     border-radius: .3rem;
     padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
+// WEATHER
+.weather {
+    @extend %aligned;
+    gap: .5rem;
+
+    h2 {
+        text-decoration: underline;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    img {
+        max-width: 40px;
+    }
+
+    p {
+        font-weight: 800;
+        font-size: .9rem;
+    }
+
+    input {
+        border: 1px solid $light-gray;
+        border-radius: .3rem;
+        padding: 0.5rem;
+    }
+}
+
+// HEADER NAV
 .header-nav {
+    position: sticky;
+    top: 0;
     @extend %spaced;
-    padding: 1rem 2rem;
+    padding: 0rem 3rem;
     border-top: 1px solid $light-gray;
     border-bottom: 1px solid $light-gray;
+}
 
-    .header-links a {
+.header-links {
+    @extend %aligned;
+    position: relative;
+
+    p {
         color: $black;
-        text-decoration: none;
-        padding: 0 1rem;
+        padding: 1rem 1rem;
+        list-style: none;
+        cursor: pointer;
+        font-size: 1.1rem;
     }
+
+    p:hover {
+        color: white;
+    }
+}
+
+.header-nav:last-child {
+    position: relative;
+}
+
+.search-container {
+    cursor: pointer;
+}
+
+.searchbox {
+    position: absolute;
+    right: 5vw;
+    @extend %aligned;
+    gap: .5rem;
+    background-color: white;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, .3);
+    padding: 1rem;
+    border-radius: .3rem;
+
+    input {
+        border: 1px solid $light-gray;
+        padding: 0.4rem;
+        border-radius: .3rem;
+    }
+}
+
+.business-nav:hover {
+    background-color: red;
+}
+
+.entertainment-nav:hover {
+    background-color: orange;
+}
+
+.health-nav:hover {
+    background-color: $blue;
+}
+
+.science-nav:hover {
+    background-color: green;
+}
+
+.sports-nav:hover {
+    background-color: indigo;
+}
+
+.tech-nav:hover {
+    background-color: rgb(0, 130, 121);
+}
+
+// DROPDWON MENU
+.dropdown {
+    position: absolute;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, .3);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: .5rem;
+
+    p {
+        padding: .5rem 0;
+        border-bottom: 1px solid $light-gray;
+    }
+}
+
+.business {
+    border-top: 4px solid red;
+    top: 0;
+}
+
+.entertainment {
+    border-top: 4px solid orange;
+}
+
+.health {
+    border-top: 4px solid $blue;
+}
+
+.science {
+    border-top: 4px solid green;
+}
+
+.sports {
+    border-top: 4px solid indigo;
+}
+
+.tech {
+    border-top: 4px solid rgb(0, 130, 121);
 }
 
 // MAIN SECTION LAYOUTS
@@ -315,7 +449,21 @@ h2:hover {
 
     h2 {
         color: $bold-red;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
+    }
+
+    h2:hover {
+        text-decoration: none;
+    }
+}
+
+
+.category-header>div {
+    @extend %aligned;
+    gap: .5rem;
+
+    svg {
+        margin-bottom: -0.2rem;
     }
 }
 
@@ -352,6 +500,10 @@ h2:hover {
         max-width: 405px;
         max-height: 303px;
     }
+
+    h2 {
+        font-size: 1.6rem;
+    }
 }
 
 .category-secondary {
@@ -362,4 +514,65 @@ h2:hover {
         max-width: 143px;
         max-height: 107px;
     }
+}
+
+// REAL ESTATE BANNER
+.real-estate {
+    display: grid;
+    grid-template-columns: 33% 1fr 1fr;
+    gap: 1rem;
+    padding: 0rem 6rem;
+    margin-bottom: 1rem;
+}
+
+.black-header {
+    grid-column: span 3;
+    border-bottom: 1px solid $black;
+
+    h2 {
+        color: $black;
+    }
+}
+
+// BLUE HEADLINES (HEALTH & SCIENCE)
+.blue-header {
+    border-bottom: 1px solid $blue;
+
+    h2 {
+        color: $blue;
+    }
+
+    .category-nav li {
+        color: $blue;
+    }
+}
+
+// BANNER ADD 
+.banner-add-container {
+    padding: 2rem 6rem;
+}
+
+.banner-add {
+    @extend %spaced;
+    border: 2px solid $black;
+    padding: .5rem 6rem;
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.big-btn {
+    font-size: 1.5rem;
+    padding: 0.8rem 1.5rem;
+}
+
+// VIDEO 
+.video-container {
+    padding-top: 4rem;
+}
+
+video {
+    max-width: 300px;
+    margin-top: 10rem;
 }

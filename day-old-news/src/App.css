@@ -15,12 +15,12 @@ a {
   text-decoration: none;
 }
 
-.type-title {
+.category-header > div, .type-title, .searchbox, .header-links, .weather {
   display: flex;
   align-items: center;
 }
 
-.category-nav ul, .category-header, .header-nav, .header-main, .header-top {
+.banner-add, .category-nav ul, .category-header, .header-nav, .header-main, .header-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,26 +50,145 @@ a {
 }
 
 .header-main {
-  padding: 1rem 5vw;
+  padding: 1rem 6rem;
 }
 
-.btn-container button {
+.primary-btn {
   color: white;
   background-color: #259ff5;
   border: none;
   border-radius: 0.3rem;
   padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.weather {
+  gap: 0.5rem;
+}
+.weather h2 {
+  text-decoration: underline;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.weather img {
+  max-width: 40px;
+}
+.weather p {
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.weather input {
+  border: 1px solid rgb(209, 208, 208);
+  border-radius: 0.3rem;
+  padding: 0.5rem;
 }
 
 .header-nav {
-  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  padding: 0rem 3rem;
   border-top: 1px solid rgb(209, 208, 208);
   border-bottom: 1px solid rgb(209, 208, 208);
 }
-.header-nav .header-links a {
-  color: rgb(4, 4, 4);
-  text-decoration: none;
-  padding: 0 1rem;
+
+.header-links {
+  position: relative;
+}
+.header-links p {
+  color: #040404;
+  padding: 1rem 1rem;
+  list-style: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.header-links p:hover {
+  color: white;
+}
+
+.header-nav:last-child {
+  position: relative;
+}
+
+.search-container {
+  cursor: pointer;
+}
+
+.searchbox {
+  position: absolute;
+  right: 5vw;
+  gap: 0.5rem;
+  background-color: white;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+.searchbox input {
+  border: 1px solid rgb(209, 208, 208);
+  padding: 0.4rem;
+  border-radius: 0.3rem;
+}
+
+.business-nav:hover {
+  background-color: red;
+}
+
+.entertainment-nav:hover {
+  background-color: orange;
+}
+
+.health-nav:hover {
+  background-color: #007bff;
+}
+
+.science-nav:hover {
+  background-color: green;
+}
+
+.sports-nav:hover {
+  background-color: indigo;
+}
+
+.tech-nav:hover {
+  background-color: rgb(0, 130, 121);
+}
+
+.dropdown {
+  position: absolute;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+.dropdown p {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgb(209, 208, 208);
+}
+
+.business {
+  border-top: 4px solid red;
+  top: 0;
+}
+
+.entertainment {
+  border-top: 4px solid orange;
+}
+
+.health {
+  border-top: 4px solid #007bff;
+}
+
+.science {
+  border-top: 4px solid green;
+}
+
+.sports {
+  border-top: 4px solid indigo;
+}
+
+.tech {
+  border-top: 4px solid rgb(0, 130, 121);
 }
 
 .main-grid {
@@ -131,7 +250,7 @@ p {
 }
 
 h2 {
-  color: rgb(4, 4, 4);
+  color: #040404;
   font-family: "Roboto Slab", serif;
   margin: 0;
   padding: 0.5rem 0;
@@ -204,7 +323,7 @@ h2:hover {
 }
 
 .mini-article-title {
-  border-bottom: 4px solid rgb(4, 4, 4);
+  border-bottom: 4px solid #040404;
 }
 .mini-article-title h2 {
   font-size: 1rem;
@@ -250,7 +369,17 @@ h2:hover {
 }
 .category-header h2 {
   color: #ba1313;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+}
+.category-header h2:hover {
+  text-decoration: none;
+}
+
+.category-header > div {
+  gap: 0.5rem;
+}
+.category-header > div svg {
+  margin-bottom: -0.2rem;
 }
 
 .category-nav ul {
@@ -280,6 +409,9 @@ h2:hover {
   max-width: 405px;
   max-height: 303px;
 }
+.category-featured h2 {
+  font-size: 1.6rem;
+}
 
 .category-secondary {
   border-bottom: 1px solid rgb(209, 208, 208);
@@ -288,4 +420,56 @@ h2:hover {
 .category-secondary img {
   max-width: 143px;
   max-height: 107px;
+}
+
+.real-estate {
+  display: grid;
+  grid-template-columns: 33% 1fr 1fr;
+  gap: 1rem;
+  padding: 0rem 6rem;
+  margin-bottom: 1rem;
+}
+
+.black-header {
+  grid-column: span 3;
+  border-bottom: 1px solid #040404;
+}
+.black-header h2 {
+  color: #040404;
+}
+
+.blue-header {
+  border-bottom: 1px solid #007bff;
+}
+.blue-header h2 {
+  color: #007bff;
+}
+.blue-header .category-nav li {
+  color: #007bff;
+}
+
+.banner-add-container {
+  padding: 2rem 6rem;
+}
+
+.banner-add {
+  border: 2px solid #040404;
+  padding: 0.5rem 6rem;
+}
+.banner-add h2 {
+  font-size: 1.5rem;
+}
+
+.big-btn {
+  font-size: 1.5rem;
+  padding: 0.8rem 1.5rem;
+}
+
+.video-container {
+  padding-top: 4rem;
+}
+
+video {
+  max-width: 300px;
+  margin-top: 10rem;
 }/*# sourceMappingURL=App.css.map */
