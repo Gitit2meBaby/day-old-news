@@ -1,9 +1,7 @@
-import { useState } from 'react'
 import './App.scss'
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Articles } from './components/Articles'
 import { Header } from './components/Header'
-import { MiniArticles } from './components/MiniArticles'
 import { Business } from './components/Business'
 import { AddRoll } from './components/AddRoll'
 import { Entertainment } from './components/Entertainment'
@@ -13,7 +11,10 @@ import { Science } from './components/Science'
 import { BannerAdd } from './components/BannerAdd'
 import { Technology } from './components/Technology'
 import { Sports } from './components/Sports'
-// import { InDetail } from './pages/in-detail'
+import { Footer } from './components/Footer'
+import { AlsoLike } from './components/AlsoLike'
+
+
 function App() {
 
   return (
@@ -21,7 +22,6 @@ function App() {
       <Header />
       <section className='main-grid'>
         <Articles />
-        <MiniArticles />
         <AddRoll />
       </section>
       <Business />
@@ -32,6 +32,8 @@ function App() {
       <BannerAdd />
       <Technology />
       <Sports />
+      <AlsoLike />
+      <Footer />
     </>
   )
 }
