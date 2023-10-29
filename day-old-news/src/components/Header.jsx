@@ -54,6 +54,7 @@ export const Header = () => {
     const sportsLinkRef = useRef(null);
     const techLinkRef = useRef(null);
 
+    // show dropdowns on hover
     const handleLinkHover = (category, ref) => {
         const linkPosition = ref.current.getBoundingClientRect();
         // Calculate the position of the dropdown menu
@@ -66,6 +67,17 @@ export const Header = () => {
         setDropdownPosition(dropdownPosition);
         setCurrentCategory(category);
     };
+
+    // // hide dropdowns on mouse out
+    // window.addEventListener('mouseover', (e) => {
+    //     if (!e.target.classList.contains('dropdown') || !e.target.classList.contains('header-nav')) {
+    //         setCurrentCategory(null)
+    //     }
+    // });
+
+    // const handleLinkLeave = () => {
+    //     setCurrentCategory(null);
+    // };
 
     return (
         <header>
@@ -127,8 +139,8 @@ export const Header = () => {
                         <p>Sports</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('tech', techLinkRef)}
-                        className='tech-nav'
+                        onMouseEnter={() => handleLinkHover('technology', techLinkRef)}
+                        className='technology-nav'
                         ref={techLinkRef}
                     >
                         <p>Technology</p>
@@ -139,6 +151,7 @@ export const Header = () => {
                             links={links[category]}
                             dropdownPosition={dropdownPosition}
                             currentCategory={currentCategory}
+                        // onMouseLeave={handleLinkLeave}
                         />
                     ))}
                 </div>

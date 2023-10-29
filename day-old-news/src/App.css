@@ -148,7 +148,7 @@ a {
   background-color: indigo;
 }
 
-.tech-nav:hover {
+.technology-nav:hover {
   background-color: rgb(0, 130, 121);
 }
 
@@ -160,35 +160,57 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.5rem;
+  width: 600px;
 }
 .dropdown p {
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.5rem;
   border-bottom: 1px solid rgb(209, 208, 208);
+}
+.dropdown p:hover {
+  color: white;
+  border: none;
 }
 
 .business {
   border-top: 4px solid red;
-  top: 0;
+}
+.business p:hover {
+  background-color: red;
 }
 
 .entertainment {
   border-top: 4px solid orange;
 }
+.entertainment p:hover {
+  background-color: orange;
+}
 
 .health {
   border-top: 4px solid #007bff;
+}
+.health p:hover {
+  background-color: #007bff;
 }
 
 .science {
   border-top: 4px solid green;
 }
+.science p:hover {
+  background-color: green;
+}
 
 .sports {
   border-top: 4px solid indigo;
 }
+.sports p:hover {
+  background-color: indigo;
+}
 
-.tech {
+.technology {
   border-top: 4px solid rgb(0, 130, 121);
+}
+.technology p:hover {
+  background-color: rgb(0, 130, 121);
 }
 
 .main-grid {

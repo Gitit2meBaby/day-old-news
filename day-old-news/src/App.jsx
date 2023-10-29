@@ -1,5 +1,6 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import './App.scss'
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Articles } from './components/Articles'
 import { Header } from './components/Header'
 import { MiniArticles } from './components/MiniArticles'
@@ -12,6 +13,7 @@ import { Science } from './components/Science'
 import { BannerAdd } from './components/BannerAdd'
 import { Technology } from './components/Technology'
 import { Sports } from './components/Sports'
+// import { InDetail } from './pages/in-detail'
 function App() {
 
   return (
@@ -30,7 +32,6 @@ function App() {
       <BannerAdd />
       <Technology />
       <Sports />
-
     </>
   )
 }

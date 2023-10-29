@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const DropdownMenu = ({ category, links, dropdownPosition, currentCategory }) => {
     return (
         <div

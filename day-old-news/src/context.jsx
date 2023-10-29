@@ -59,7 +59,7 @@ const AppProvider = ({ children }) => {
     }, [searchKeyword]);
 
     //reusable interaction observer to put on subsequent API loads lower on the page
-    const useIntersectionObserver = (targetElement, onIntersect, rootMargin = '-200px') => {
+    const useIntersectionObserver = (targetElement, onIntersect, rootMargin = '-100px') => {
         useEffect(() => {
             const observer = new IntersectionObserver(
                 (entries) => {
