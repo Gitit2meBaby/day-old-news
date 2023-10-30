@@ -799,6 +799,15 @@ video {
   gap: 1rem;
   padding: 2rem 6rem;
 }
+.details-page h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+.details-page h2 {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
 
 .details-article {
   gap: 1rem;

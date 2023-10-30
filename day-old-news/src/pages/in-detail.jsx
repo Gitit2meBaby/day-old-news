@@ -1,39 +1,32 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGlobalContext } from '../context';
 
 export const InDetail = () => {
-    const { detailsArticles, setDetailsArticles } = useGlobalContext();
-    const [apiCallMade, setApiCallMade] = useState(false);
+    const { detailsArticles, fetchPageArticles, setApiDetailsCallMade, categoryColor, categoryName } = useGlobalContext();
 
-    const fetchPageArticles = useCallback(async () => {
-        if (!apiCallMade && detailsArticles) { // Check if detailsArticles is not falsy
-            try {
-                const url = `https://newsapi.org/v2/everything?q=${detailsArticles}&apiKey=c3f070d7c3164d759829cccd6c7308f0`;
-                const response = await fetch(url);
-                const categoryData = await response.json();
-                // Check if the response data is not empty or an error
-                if (categoryData.articles && categoryData.articles.length > 0) {
-                    setDetailsArticles(categoryData);
-                }
-                setApiCallMade(true);
-                console.log('details-fetched', categoryData);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }, [detailsArticles, apiCallMade, setDetailsArticles]);
-
-    // Call fetchPageArticles when the component renders
+    // Call fetchPageArticles when the state changes
     useEffect(() => {
-        setApiCallMade(false);
+        setApiDetailsCallMade(false);
         fetchPageArticles();
     }, [detailsArticles]);
+
+    //Split string from categoryName for heading styling
+    const inputString = categoryName;
+    const words = inputString.split(' ');
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    const categoryTitle = capitalizeFirstLetter(words[0]);
+    const subCategoryTitle = words.slice(1).join(' ');
+
 
     // check for API returns without a description
     const filteredArticles = (detailsArticles.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
     return (
         <section className="details-page">
+            <h1 style={{ color: categoryColor }}>{categoryTitle}</h1>
+            <h2 style={{ color: categoryColor }}>{subCategoryTitle}</h2>
             {filteredArticles &&
                 filteredArticles.map((category) => {
                     return (
@@ -42,7 +35,7 @@ export const InDetail = () => {
                                 <img src={category.urlToImage} alt={category.title} />
                             </a>
                             <div className='details-content'>
-                                <p>{category.source.name}</p>
+                                <p style={{ color: categoryColor }}>{category.source.name}</p>
                                 <a href={category.url}>
                                     <h2>{category.title}</h2>
                                 </a>

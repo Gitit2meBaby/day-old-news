@@ -5,7 +5,7 @@ import { useGlobalContext } from '../context';
 
 
 export const MobileNav = () => {
-    const { isMobileNavVisible, setDetailsArticles, detailsArticles } = useGlobalContext();
+    const { isMobileNavVisible, setDetailsArticles, detailsArticles, setCategoryColor, categoryName, setCategoryName } = useGlobalContext();
 
     const mapLinks = (keyword) => {
         return links[keyword].map((link, index) => (
@@ -14,8 +14,10 @@ export const MobileNav = () => {
                 key={index}
                 onClick={() => {
                     setDetailsArticles(link);
+                    setCategoryName((prevCategoryName) => `${prevCategoryName} ${link}`);
                     console.log('Clicked:', detailsArticles);
                     console.log('Current:', link)
+                    console.log('new name:', categoryName)
                 }}
             >{link}</p>
         ));
@@ -26,15 +28,15 @@ export const MobileNav = () => {
         setDetailsArticles(searchValue)
     }
 
-    const mobNavItem = document.querySelectorAll('.mob-nav-item');
-    mobNavItem.forEach((item) => {
-        item.addEventListener('click', (e) => {
-            const mobileDropdown = e.target.nextElementSibling;
-            mobileDropdown.classList.remove('hidden');
-            const pElement = item.querySelector('p');
-            pElement.classList.add('active-text');
-        });
-    });
+    const handleNavClick = (e, color, title) => {
+        const mobileDropdown = e.target.nextElementSibling;
+        mobileDropdown.classList.toggle('hidden');
+        const pElement = e.target.querySelector('p');
+        pElement.classList.toggle('active-text');
+        setCategoryColor(color);
+        setCategoryName(title)
+    }
+
 
     return (
         <nav className={`mobile-nav ${isMobileNavVisible ? 'slide-in' : ''}`}>
@@ -48,42 +50,42 @@ export const MobileNav = () => {
             <div className="mob-nav-item">
                 <p>Home</p>
             </div>
-            <div className='mob-nav-item business'>
+            <div onClick={(e) => handleNavClick(e, '#ff0000', 'business')} className='mob-nav-item business'>
                 <p>Business</p>
                 <svg stroke="#ff0000" fill="#ff0000" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>
             <div className="mobile-dropdown business-mob hidden">
                 {mapLinks('business')}
             </div>
-            <div className='mob-nav-item entertainment'>
+            <div onClick={(e) => handleNavClick(e, '#ffa500', 'entertainment')} className='mob-nav-item entertainment'>
                 <p>Entertainment</p>
                 <svg stroke="#ffa500" fill="#ffa500" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>
             <div className="mobile-dropdown entertainment-mob hidden">
                 {mapLinks('entertainment')}
             </div>
-            <div className='mob-nav-item health'>
+            <div onClick={(e) => handleNavClick(e, '#007bff', 'health')} className='mob-nav-item health'>
                 <p>Health</p>
                 <svg stroke="#007bff" fill="#007bff" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>
             <div className="mobile-dropdown health-mob hidden">
                 {mapLinks('health')}
             </div>
-            <div className='mob-nav-item science'>
+            <div onClick={(e) => handleNavClick(e, '#008000', 'science')} className='mob-nav-item science'>
                 <p>Science</p>
                 <svg stroke="#008000" fill="#008000" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>
             <div className="mobile-dropdown science-mob hidden">
                 {mapLinks('science')}
             </div>
-            <div className='mob-nav-item sports'>
+            <div onClick={(e) => handleNavClick(e, '#4b0082', 'sports')} className='mob-nav-item sports'>
                 <p>Sports</p>
                 <svg stroke="#4b0082" fill="#4b0082" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>
             <div className="mobile-dropdown sports-mob hidden">
                 {mapLinks('sports')}
             </div>
-            <div className='mob-nav-item technology'>
+            <div onClick={(e) => handleNavClick(e, '#008279', 'technology')} className='mob-nav-item technology'>
                 <p>Technology</p>
                 <svg stroke="#008279" fill="#008279" strokeWidth="1" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clipRule="evenodd"></path></svg>
             </div>

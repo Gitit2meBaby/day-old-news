@@ -6,7 +6,7 @@ import links from '../../links';
 import { MobileNav } from './MobileNav';
 
 export const Header = () => {
-    const { updateSearchKeyword, fetchHeadlines, toggleMobileNav, isMobileNavVisible } = useGlobalContext();
+    const { updateSearchKeyword, fetchHeadlines, toggleMobileNav, isMobileNavVisible, setCategoryName, setCategoryColor } = useGlobalContext();
     const [searchClick, setSearchClick] = useState(false)
     const [dropdownPosition, setDropdownPosition] = useState(null);
     const [currentCategory, setCurrentCategory] = useState(null);
@@ -56,7 +56,7 @@ export const Header = () => {
     const techLinkRef = useRef(null);
 
     // show dropdowns on hover
-    const handleLinkHover = (category, ref) => {
+    const handleLinkHover = (category, ref, color) => {
         const linkPosition = ref.current.getBoundingClientRect();
         // Calculate the position of the dropdown menu
         const dropdownPosition = {
@@ -67,6 +67,8 @@ export const Header = () => {
         // Pass the dropdown position to the DropdownMenu component
         setDropdownPosition(dropdownPosition);
         setCurrentCategory(category);
+        setCategoryColor(color)
+        setCategoryName(category)
     };
 
     // // hide dropdowns on mouse out
@@ -125,42 +127,42 @@ export const Header = () => {
                 <a href="/"><svg stroke="currentColor" fill="#000" strokeWidth="0" viewBox="0 0 1024 1024" height="1.3em" width="1.3em" xmlns="http://www.w3.org/2000/svg"><path d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z"></path></svg></a>
                 <div className="header-links">
                     <div
-                        onMouseEnter={() => handleLinkHover('business', businessLinkRef)}
+                        onMouseEnter={() => handleLinkHover('business', businessLinkRef, '#ff0000')}
                         className='business-nav'
                         ref={businessLinkRef}
                     >
                         <p>Business</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('entertainment', entertainmentLinkRef)}
+                        onMouseEnter={() => handleLinkHover('entertainment', entertainmentLinkRef, '#ffa500')}
                         className='entertainment-nav'
                         ref={entertainmentLinkRef}
                     >
                         <p>Entertainment</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('health', healthLinkRef)}
+                        onMouseEnter={() => handleLinkHover('health', healthLinkRef, '#007bff')}
                         className='health-nav'
                         ref={healthLinkRef}
                     >
                         <p>Health</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('science', scienceLinkRef)}
+                        onMouseEnter={() => handleLinkHover('science', scienceLinkRef, '#008000')}
                         className='science-nav'
                         ref={scienceLinkRef}
                     >
                         <p>Science</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('sports', sportsLinkRef)}
+                        onMouseEnter={() => handleLinkHover('sports', sportsLinkRef, '#4b0082')}
                         className='sports-nav'
                         ref={sportsLinkRef}
                     >
                         <p>Sports</p>
                     </div>
                     <div
-                        onMouseEnter={() => handleLinkHover('technology', techLinkRef)}
+                        onMouseEnter={() => handleLinkHover('technology', techLinkRef, '#008279')}
                         className='technology-nav'
                         ref={techLinkRef}
                     >
