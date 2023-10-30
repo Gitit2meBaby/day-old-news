@@ -68,6 +68,8 @@ export const AlsoLike = () => {
                         })}
                 </div>
 
+                <h3 className='mob-title'>TRENDING TOPICS</h3>
+
                 <div className="hot-topics">
                     <div onClick={() => handleClick('bushfires')}>
                         <p>Australian Bushfires</p>
@@ -94,6 +96,8 @@ export const AlsoLike = () => {
                         <p>Kayo</p>
                     </div>
                 </div>
+
+                <h3 className='mob-title'>MOST COMMENTS</h3>
 
                 <div className="popular-thumbs-container">
                     {filteredArticles &&

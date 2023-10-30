@@ -33,6 +33,8 @@ export const MobileNav = () => {
         mobileDropdown.classList.toggle('hidden');
         const pElement = e.target.querySelector('p');
         pElement.classList.toggle('active-text');
+        const chevron = e.target.querySelector('svg')
+        chevron.classList.toggle('rotate')
         setCategoryColor(color);
         setCategoryName(title)
     }
