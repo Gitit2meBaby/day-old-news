@@ -7,8 +7,6 @@ export const Articles = () => {
     // check for API returns without a description
     const filteredArticles = (headlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    console.log(headlines)
-
     return (
         <section className='main-articles'>
             <section className='top-articles'>

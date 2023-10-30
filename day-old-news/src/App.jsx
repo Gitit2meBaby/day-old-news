@@ -13,12 +13,14 @@ import { Technology } from './components/Technology'
 import { Sports } from './components/Sports'
 import { Footer } from './components/Footer'
 import { AlsoLike } from './components/AlsoLike'
+import { InDetail } from './pages/in-detail'
 
 
 function App() {
 
   return (
     <>
+      <InDetail />
       <Header />
       <section className='main-grid'>
         <Articles />

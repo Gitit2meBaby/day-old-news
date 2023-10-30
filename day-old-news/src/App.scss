@@ -17,16 +17,30 @@ a {
 
 // VARIABLES
 $white-text: white;
-$light-gray: rgb(209, 208, 208);
-$med-gray: rgb(142, 142, 142);
+$light-gray: #d1d0d0;
+$med-gray: #8e8e8e;
 $dark-gray: rgb(113, 113, 113);
 $black: #040404;
 $btn-primary: #259ff5;
 $heading-font: 'Roboto Slab', serif;
 $bold-red: #ba1313;
 $blue: #007bff;
+$border: 1px solid $light-gray;
 
 // MIX-INS
+@mixin responsive-border($side, $color, ) {
+    @if $side =='top' {
+        border-top: 4px solid $color;
+    }
+
+    @media (max-width: 700px) {
+        @if $side =='top' {
+            border-top: none;
+            border-left: 4px solid $color;
+        }
+    }
+}
+
 %centered {
     display: flex;
     justify-content: center;
@@ -62,6 +76,10 @@ $blue: #007bff;
         text-decoration: none;
         color: $white-text;
         font-size: .8rem;
+    }
+
+    button {
+        display: none;
     }
 }
 
@@ -180,28 +198,34 @@ $blue: #007bff;
     }
 }
 
+.business-mob,
 .business-nav:hover {
-    background-color: red;
+    background-color: #ff0000;
 }
 
+.entertainment-mob,
 .entertainment-nav:hover {
-    background-color: orange;
+    background-color: #ffa500;
 }
 
+.health-mob,
 .health-nav:hover {
     background-color: $blue;
 }
 
+.science-mob,
 .science-nav:hover {
-    background-color: green;
+    background-color: #008000;
 }
 
+.sports-mob,
 .sports-nav:hover {
-    background-color: indigo;
+    background-color: #4b0082;
 }
 
+.technology-mob,
 .technology-nav:hover {
-    background-color: rgb(0, 130, 121);
+    background-color: #008279;
 }
 
 // DROPDOWN MENU
@@ -227,7 +251,7 @@ $blue: #007bff;
 }
 
 .business {
-    border-top: 4px solid red;
+    @include responsive-border('top', #ff0000);
 
     p:hover {
         background-color: red;
@@ -235,7 +259,7 @@ $blue: #007bff;
 }
 
 .entertainment {
-    border-top: 4px solid orange;
+    @include responsive-border('top', orange);
 
     p:hover {
         background-color: orange;
@@ -243,7 +267,8 @@ $blue: #007bff;
 }
 
 .health {
-    border-top: 4px solid $blue;
+    @include responsive-border('top', $blue);
+
 
     p:hover {
         background-color: $blue;
@@ -251,7 +276,7 @@ $blue: #007bff;
 }
 
 .science {
-    border-top: 4px solid green;
+    @include responsive-border('top', green);
 
     p:hover {
         background-color: green;
@@ -259,7 +284,8 @@ $blue: #007bff;
 }
 
 .sports {
-    border-top: 4px solid indigo;
+    @include responsive-border('top', indigo);
+
 
     p:hover {
         background-color: indigo;
@@ -267,20 +293,130 @@ $blue: #007bff;
 }
 
 .technology {
-    border-top: 4px solid rgb(0, 130, 121);
+    @include responsive-border('top', rgb(0, 130, 121));
+
 
     p:hover {
         background-color: rgb(0, 130, 121);
     }
 }
 
+// MOBILE MENU
+.toggle {
+    border: 1px solid $med-gray;
+    border-radius: .3rem;
+    @extend %centered;
+    padding: 0.5rem;
+    display: none;
+}
+
+.mobile-nav {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s, transform 1s;
+    border-top: 1px solid $black;
+
+    .mob-nav-item {
+        @extend %spaced;
+        padding: 1rem 2rem;
+        border-bottom: $border;
+
+        p {
+            color: $black;
+        }
+
+        svg {
+            margin-bottom: -0.4rem;
+        }
+    }
+}
+
+.mob-search {
+    padding: 1rem;
+    @extend %aligned;
+    border-bottom: $border;
+
+    input {
+        border: $border;
+        padding: 0.5rem;
+        width: 90%;
+        box-shadow: 0 2px 5px 2px rgba(0, 0, 0, .1);
+    }
+
+    input::placeholder {
+        color: $light-gray;
+    }
+
+    button {
+        border: none;
+        background-color: $btn-primary;
+        padding: 0.2rem .5rem;
+        position: relative;
+        right: 8%;
+        border: $border;
+        border-left: none;
+    }
+}
+
+.mobile-dropdown {
+
+    p {
+        padding: 1rem 2rem;
+        color: white;
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .toggle {
+        display: flex;
+    }
+
+    .header-top p,
+    .header-top a:last-of-type,
+    .btn-container,
+    .header-nav,
+    .weather {
+        display: none;
+    }
+
+    .header-top button {
+        display: flex;
+        border: none;
+        background-color: transparent;
+        color: white;
+        font-size: .8rem;
+        cursor: pointer;
+    }
+
+    .header-main {
+        padding: .5rem 1.4rem;
+        border-bottom: 1px solid $black;
+    }
+
+    .weather:nth-of-type(1) {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: $border;
+        padding: .5rem 1rem;
+
+        img {
+            margin-left: auto;
+        }
+    }
+
+}
+
+//
 // MAIN SECTION LAYOUTS
+//
 .main-grid {
     display: grid;
     grid-template-columns: 75% 1fr;
     gap: 2rem;
     padding: 0 6rem 2rem 6rem;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: $border;
     margin-bottom: 1.5rem;
 }
 
@@ -795,8 +931,42 @@ video {
     }
 }
 
-// FOOTER
+// IN DETAILS PAGE
+.details-page {
+    @extend %column;
+    gap: 1rem;
+    padding: 2rem 6rem;
 
+}
+
+.details-article {
+    @extend %aligned;
+    gap: 1rem;
+    border-bottom: $border;
+    padding-bottom: 2.5rem;
+    width: 900px;
+
+    img {
+        max-width: 250px;
+    }
+}
+
+.details-content {
+    align-self: flex-start;
+
+    h2 {
+        font-size: 1.4rem;
+    }
+}
+
+.details-content p:first-of-type {
+    text-transform: uppercase;
+    font-size: .9rem;
+}
+
+//
+// FOOTER
+//
 footer {
     padding: 0 6rem 2rem 6rem;
 }
@@ -927,4 +1097,19 @@ footer {
         color: $blue;
 
     }
+}
+
+// JAVASCRIPT CLASSES 
+.hidden {
+    display: none;
+}
+
+.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s, transform 1s;
+}
+
+.active-text {
+    font-weight: 800;
 }

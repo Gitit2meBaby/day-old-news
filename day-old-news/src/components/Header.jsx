@@ -3,9 +3,10 @@ import { useState, useRef } from 'react';
 import { Weather } from './Weather';
 import { DropdownMenu } from './DropdownMenu'
 import links from '../../links';
+import { MobileNav } from './MobileNav';
 
 export const Header = () => {
-    const { updateSearchKeyword, fetchHeadlines } = useGlobalContext();
+    const { updateSearchKeyword, fetchHeadlines, toggleMobileNav, isMobileNavVisible } = useGlobalContext();
     const [searchClick, setSearchClick] = useState(false)
     const [dropdownPosition, setDropdownPosition] = useState(null);
     const [currentCategory, setCurrentCategory] = useState(null);
@@ -79,17 +80,27 @@ export const Header = () => {
     //     setCurrentCategory(null);
     // };
 
+    // Mobile Menu toggle show/hide
+    const handleMenuToggle = () => {
+        toggleMobileNav()
+    }
+
     return (
         <header>
             <div className="header-top">
                 <a href="https://www.amazon.com/Deal-Week/s?k=Deal+of+The+Week">Deals of the week</a>
                 <p>{formattedDateTime}</p>
                 <a href="#">Sources</a>
+                <button className='white-btn'>Sign In</button>
             </div>
 
             <div className="gradient-border"></div>
 
             <div className="header-main">
+                <div className="toggle sign-in-toggle">
+                    <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"></path></svg>
+                    <svg className='hidden' stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                </div>
                 <Weather />
                 <div className="logo">
                     <img src="../../public/assets/logo.webp" alt="Day Old News logo" />
@@ -98,7 +109,17 @@ export const Header = () => {
                 <div className="btn-container">
                     <button className="primary-btn">Sign Up</button>
                 </div>
+
+                <div className="menu-toggle toggle" onClick={() => handleMenuToggle()}>
+                    {!isMobileNavVisible ?
+                        <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 512 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M32 96v64h448V96H32zm0 128v64h448v-64H32zm0 128v64h448v-64H32z"></path></svg>
+                        :
+                        <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                    }
+                </div>
             </div>
+            {isMobileNavVisible ?
+                < MobileNav /> : null}
 
             <div className="header-nav">
                 <a href="/"><svg stroke="currentColor" fill="#000" strokeWidth="0" viewBox="0 0 1024 1024" height="1.3em" width="1.3em" xmlns="http://www.w3.org/2000/svg"><path d="M946.5 505L534.6 93.4a31.93 31.93 0 0 0-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.7 64 64 64h43.4V908c0 17.7 14.3 32 32 32H448V716h112v224h265.9c17.7 0 32-14.3 32-32V614.3h43.4c17 0 33.3-6.7 45.3-18.8 24.9-25 24.9-65.5-.1-90.5z"></path></svg></a>

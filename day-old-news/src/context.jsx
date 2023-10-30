@@ -10,6 +10,13 @@ const AppProvider = ({ children }) => {
     const [headlines, setHeadlines] = useState([]);
     const [categoryArticles, setCategoryArticles] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [isMobileNavVisible, setIsMobileNavVisible] = useState(false);
+    const [detailsArticles, setDetailsArticles] = useState('')
+
+    // mobile menu toggle
+    const toggleMobileNav = () => {
+        setIsMobileNavVisible(!isMobileNavVisible);
+    };
 
     //searchbar in header function to pass state
     const updateSearchKeyword = (keyword) => {
@@ -122,7 +129,7 @@ const AppProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ loading, setLoading, headlines, setHeadlines, fetchHeadlines, categoryArticles, setCategoryArticles, timeAgo, truncateText, fetchCategoryArticles, useIntersectionObserver, searchKeyword, updateSearchKeyword }}>
+        <AppContext.Provider value={{ loading, setLoading, headlines, setHeadlines, fetchHeadlines, categoryArticles, setCategoryArticles, timeAgo, truncateText, fetchCategoryArticles, useIntersectionObserver, searchKeyword, updateSearchKeyword, toggleMobileNav, isMobileNavVisible, detailsArticles, setDetailsArticles }}>
             {children}
         </AppContext.Provider>
     );
