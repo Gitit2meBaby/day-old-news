@@ -1,3 +1,5 @@
+@import './signup.scss';
+
 :root {
     font-family: 'Roboto', sans-serif;
 }
@@ -238,6 +240,7 @@ $border: 1px solid $light-gray;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: .5rem;
     width: 600px;
+    z-index: 5;
 
     p {
         padding: .5rem .5rem;
@@ -1488,6 +1491,22 @@ footer {
     .disclosure {
         padding: 1rem;
         text-align: center;
+    }
+}
+
+// NOT FOUND
+.not-found {
+    height: 70dvh;
+    @extend %column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    button {
+        font-size: 1.5rem;
     }
 }
 

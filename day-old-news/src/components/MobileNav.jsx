@@ -5,27 +5,32 @@ import { useGlobalContext } from '../context';
 
 
 export const MobileNav = () => {
-    const { isMobileNavVisible, setDetailsArticles, detailsArticles, setCategoryColor, categoryName, setCategoryName } = useGlobalContext();
+    const { isMobileNavVisible, setDetailsArticles, detailsArticles, setCategoryColor, categoryName, setCategoryName, toggleMobileNav } = useGlobalContext();
 
     const mapLinks = (keyword) => {
         return links[keyword].map((link, index) => (
-            <p className={keyword}
-                to={index}
-                key={index}
-                onClick={() => {
-                    setDetailsArticles(link);
-                    setCategoryName((prevCategoryName) => `${prevCategoryName} ${link}`);
-                    console.log('Clicked:', detailsArticles);
-                    console.log('Current:', link)
-                    console.log('new name:', categoryName)
-                }}
-            >{link}</p>
+            <Link to='/indetail' key={index}>
+                <p className={keyword}
+                    to={index}
+                    key={index}
+                    onClick={() => {
+                        setDetailsArticles(link);
+                        setCategoryName((prevCategoryName) => `${prevCategoryName} ${link}`);
+                        toggleMobileNav()
+                        console.log('Clicked:', detailsArticles);
+                        console.log('Current:', link)
+                        console.log('new name:', categoryName)
+                    }}
+                >{link}</p>
+            </Link>
         ));
     }
 
     const handleSearch = () => {
         const searchValue = document.querySelector('#mobSearch').value;
         setDetailsArticles(searchValue)
+        setCategoryName(searchValue)
+        toggleMobileNav()
     }
 
     const handleNavClick = (e, color, title) => {

@@ -1,5 +1,5 @@
 import './App.scss'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Articles } from './components/Articles'
 import { Header } from './components/Header'
 import { Business } from './components/Business'
@@ -14,30 +14,39 @@ import { Sports } from './components/Sports'
 import { Footer } from './components/Footer'
 import { AlsoLike } from './components/AlsoLike'
 import { InDetail } from './pages/in-detail'
-
+import { NotFound } from './pages/NotFound'
+import { SignUp } from './pages/SignUp'
 
 function App() {
-
   return (
     <>
-      <InDetail />
       <Header />
-      <section className='main-grid'>
-        <Articles />
-        <AddRoll />
-      </section>
-      <Business />
-      <Entertainment />
-      <RealEstate />
-      <Health />
-      <Science />
-      <BannerAdd />
-      <Technology />
-      <Sports />
-      <AlsoLike />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <section className='main-grid'>
+              <Articles />
+              <AddRoll />
+            </section>
+            <Business />
+            <Entertainment />
+            <RealEstate />
+            <Health />
+            <Science />
+            <BannerAdd />
+            <Technology />
+            <Sports />
+            <AlsoLike />
+          </>
+        } />
+        <Route path="/indetail" element={<InDetail />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
       <Footer />
     </>
   )
 }
 
-export default App
+export default App;
+

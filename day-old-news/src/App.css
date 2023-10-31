@@ -1,3 +1,7 @@
+.signup-page {
+  height: 90dvh;
+}
+
 :root {
   font-family: "Roboto", sans-serif;
 }
@@ -32,7 +36,7 @@ a {
   align-items: center;
 }
 
-.footer-nav .nav-item:last-of-type, .details-page, .featured, .main-articles {
+.not-found, .footer-nav .nav-item:last-of-type, .details-page, .featured, .main-articles {
   display: flex;
   flex-direction: column;
 }
@@ -176,6 +180,7 @@ a {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.5rem;
   width: 600px;
+  z-index: 5;
 }
 .dropdown p {
   padding: 0.5rem 0.5rem;
@@ -1251,6 +1256,18 @@ footer {
     text-align: center;
   }
 }
+.not-found {
+  height: 70dvh;
+  align-items: center;
+  justify-content: center;
+}
+.not-found h1 {
+  font-size: 3rem;
+}
+.not-found button {
+  font-size: 1.5rem;
+}
+
 .hidden {
   display: none;
 }
