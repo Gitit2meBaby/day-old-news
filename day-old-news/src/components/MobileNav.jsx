@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { Weather } from './Weather'
 import { useGlobalContext } from '../context';
 
-
 export const MobileNav = () => {
     const { isMobileNavVisible, setDetailsArticles, detailsArticles, setCategoryColor, categoryName, setCategoryName, toggleMobileNav } = useGlobalContext();
 
+    // iterate over links file to create all the dropdown content
     const mapLinks = (keyword) => {
         return links[keyword].map((link, index) => (
             <Link to='/indetail' key={index}>
@@ -26,6 +26,7 @@ export const MobileNav = () => {
         ));
     }
 
+    // Take value from search input and set details page content accordingly
     const handleSearch = () => {
         const searchValue = document.querySelector('#mobSearch').value;
         setDetailsArticles(searchValue)
@@ -33,6 +34,7 @@ export const MobileNav = () => {
         toggleMobileNav()
     }
 
+    // trigger dropdowns with correct background colors, and set state for name
     const handleNavClick = (e, color, title) => {
         const mobileDropdown = e.target.nextElementSibling;
         mobileDropdown.classList.toggle('hidden');
@@ -43,7 +45,6 @@ export const MobileNav = () => {
         setCategoryColor(color);
         setCategoryName(title)
     }
-
 
     return (
         <nav className={`mobile-nav ${isMobileNavVisible ? 'slide-in' : ''}`}>

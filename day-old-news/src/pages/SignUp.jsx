@@ -1,7 +1,11 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { useGlobalContext } from '../context';
+import { Link } from 'react-router-dom';
 
 export const SignUp = () => {
+    const { setUserName, userName, setFormSubmitted } = useGlobalContext();
     const [dropdownVisible, setDropdownVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -9,31 +13,122 @@ export const SignUp = () => {
         lastName: '',
         postcode: '',
     });
+    const checkboxRef = useRef();
+    let isValid = true;
 
+    // update state as form changes, (also clears values on refocus after error)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
         });
+        const input = e.target;
+        input.style.border = '';
+        input.placeholder = '';
+        input.classList.remove('placeholder-red');
     };
 
+    // useless scroll thats included from button to actual form
+    const handleScroll = () => {
+        const elementToScrollTo = document.querySelector('.details')
+        if (elementToScrollTo) {
+            elementToScrollTo.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    // the privacy policy dropdown info
+    const handleDropdown = () => {
+        setDropdownVisible(!dropdownVisible)
+        const chevron = document.getElementById('chevron')
+        chevron.classList.toggle('rotate')
+    }
+
+    // all the validation logic for the form
+    const handleSubmit = (e) => {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const postcodeInput = document.getElementById('postcode');
+        const termsContainer = document.querySelector('.terms-agree-container');
+        e.preventDefault();
+
+        const { email } = formData;
+
+        // Validate email
+        if (!validateEmail(email)) {
+            error(emailInput, '*Please enter a valid email address');
+            emailInput.value = '';
+            isValid = false;
+        } else {
+            emailInput.style.border = '2px solid green';
+        }
+
+        // Validate postcode
+        const postcodeRegex = /^\d{4}$/;
+        if (!postcodeRegex.test(formData.postcode)) {
+            error(postcodeInput, '*Please provide a valid postcode (e.g., 1234)');
+            postcodeInput.value = '';
+            isValid = false;
+        } else {
+            postcodeInput.style.border = '2px solid green';
+        }
+
+        // Validate password
+        if (passwordInput.value.length < 8) {
+            error(passwordInput, '*Password must be at least 8 characters');
+            passwordInput.value = '';
+            isValid = false;
+        } else {
+            passwordInput.style.border = '2px solid green';
+        }
+
+        // Check for empty fields
+        const emptyMessage = '*Please fill out the field'
+        checkEmptyInput(emailInput, formData.email, emptyMessage);
+        checkEmptyInput(passwordInput, formData.password, emptyMessage);
+        checkEmptyInput(firstNameInput, formData.firstName, emptyMessage);
+        checkEmptyInput(lastNameInput, formData.lastName, emptyMessage);
+        checkEmptyInput(postcodeInput, formData.postcode, emptyMessage);
+
+        // Make sure checkbox is checked
+        if (!checkboxRef.current.checked) {
+            termsContainer.style.border = '1px solid red';
+            isValid = false;
+        } else {
+            termsContainer.style.border = 'none';
+        }
+
+        if (isValid) {
+            console.log(formData.firstName);
+            setFormSubmitted(true)
+            setUserName(formData.firstName);
+            setModalVisible(true)
+            localStorage.setItem("user", JSON.stringify(formData.firstName));
+            localStorage.setItem("existingUser", JSON.stringify(true))
+        }
+    };
+
+    // stop propogation with empty values
+    function checkEmptyInput(inputElement, inputValue, errorMessage) {
+        if (inputValue === '') {
+            error(inputElement, errorMessage);
+            isValid = false;
+        }
+    }
+
+    // check email against regExp
     function validateEmail(email) {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailRegex.test(email);
     }
 
-    const email = "example@email.com";
-    if (validateEmail(email)) {
-        console.log("Email is valid");
-    } else {
-        console.log("Email is invalid");
-    }
-
-    const handleDropdown = () => {
-        setDropdownVisible(!dropdownVisible)
-        const chevron = document.getElementById('chevron')
-        chevron.classList.toggle('rotate')
+    // Styling for an error
+    const error = (input, message) => {
+        input.style.border = '2px solid red'
+        input.placeholder = message
+        input.classList.add('placeholder-red');
     }
 
     return (
@@ -72,7 +167,7 @@ export const SignUp = () => {
             </section>
 
             <section className="details">
-                <div>
+                <div className='duplicate-container'>
                     <div className="registration-box duplicate-box">
                         <div className="box-header">
                             <p>Your Selection</p>
@@ -97,9 +192,10 @@ export const SignUp = () => {
                         <h2>Enter your details</h2>
                         <p>You may already have an account with <span>us</span>.</p>
                         <p>Register with your existing account <span>here</span>.</p>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div>
                                 <input
+                                    id='email'
                                     placeholder='Email'
                                     type="email"
                                     name="email"
@@ -109,6 +205,7 @@ export const SignUp = () => {
                             </div>
                             <div>
                                 <input
+                                    id='password'
                                     placeholder='Password (min 8 characters)'
                                     type="password"
                                     name="password"
@@ -120,6 +217,7 @@ export const SignUp = () => {
                             <div className="name">
                                 <div>
                                     <input
+                                        id='firstName'
                                         placeholder='First Name'
                                         type="text"
                                         name="firstName"
@@ -129,6 +227,7 @@ export const SignUp = () => {
                                 </div>
                                 <div>
                                     <input
+                                        id='lastName'
                                         placeholder='Last Name'
                                         type="text"
                                         name="lastName"
@@ -139,6 +238,7 @@ export const SignUp = () => {
                             </div>
                             <div>
                                 <input
+                                    id='postcode'
                                     placeholder='Postcode'
                                     type="number"
                                     name="postcode"
@@ -152,7 +252,7 @@ export const SignUp = () => {
                             <p>This site is protected by reCAPTCHA and the Google ,<a href='https://policies.google.com/privacy'>Privacy Policy</a> and <a href='https://policies.google.com/terms'>Terms of Service</a> apply.</p>
 
                             <div className="terms-agree-container">
-                                <input type="checkbox" />
+                                <input id='checkbox' type="checkbox" ref={checkboxRef} />
                                 <p>I have read and agree to the <a href='https://policies.google.com/privacy'>Privacy Policy</a>, <a href='https://policies.google.com/terms'>Terms and Conditions</a> and agree that News Pty Limited and any of its related companies can contact me with special offers and marketing.</p>
                             </div>
 
@@ -168,10 +268,17 @@ export const SignUp = () => {
                                 </div>}
                             </div>
                         </div>
-                        <button className="primary-btn">Complete Registration</button>
+                        <button onClick={handleSubmit} type='submit' className="primary-btn">Complete Registration</button>
                     </div>
                 </div>
             </section>
+
+            {modalVisible && <div className='modal'>
+                <img src="../../public/assets/logo.webp" alt="day old news logo" />
+                <h2>Congratulations {userName}</h2>
+                <p>You have succesfully signed up!</p>
+                <Link to='/'><button onClick={() => setModalVisible(false)} className='primary-btn'>Home</button></Link>
+            </div>}
         </main>
     )
 }

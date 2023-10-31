@@ -7,6 +7,7 @@ export const Entertainment = () => {
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
 
+    // observe when getting close to call Api
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('entertainment');
@@ -23,13 +24,13 @@ export const Entertainment = () => {
         fetchCategoryArticles(keyword)
     }
 
+    // Api call with endpoint set at first
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
             const response = await fetch(url);
             const categoryData = await response.json();
             setEntertainmentHeadlines(categoryData);
-            console.log('entertainment-fetched')
         } catch (error) {
             console.log(error);
         }

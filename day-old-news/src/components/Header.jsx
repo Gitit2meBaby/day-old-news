@@ -1,17 +1,19 @@
 import { useGlobalContext } from '../context';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Weather } from './Weather';
 import { DropdownMenu } from './DropdownMenu'
 import links from '../../links';
 import { MobileNav } from './MobileNav';
 
+
 export const Header = () => {
-    const { updateSearchKeyword, fetchHeadlines, toggleMobileNav, isMobileNavVisible, setCategoryName, setCategoryColor } = useGlobalContext();
+    const { updateSearchKeyword, fetchHeadlines, toggleMobileNav, isMobileNavVisible, setCategoryName, setCategoryColor, formSubmitted, userName } = useGlobalContext();
     const [searchClick, setSearchClick] = useState(false)
     const [dropdownPosition, setDropdownPosition] = useState(null);
     const [currentCategory, setCurrentCategory] = useState(null);
     const [isDropdownHovered, setIsDropdownHovered] = useState(false);
+    const [mobileSignInBtn, setMobileSignInBtn] = useState(false)
 
 
     // Calculate the current date and time
@@ -26,6 +28,50 @@ export const Header = () => {
         hour12: true,
     };
     const formattedDateTime = currentDateTime.toLocaleDateString(undefined, options);
+
+    // Sticky Header (change which header depending on screen size)
+    useEffect(() => {
+        let stickyHeader = document.querySelector(".header-nav");
+        let stickyThreshold = 120;
+        const mainArticles = document.querySelector('.main-articles');
+        const signInToggle = document.querySelector('.sign-in-toggle');
+
+        const updateStickyHeader = () => {
+            if (window.innerWidth <= 700) {
+                stickyHeader = document.querySelector(".header-main");
+                stickyThreshold = 40;
+            } else {
+                stickyHeader = document.querySelector(".header-nav");
+                stickyThreshold = 120;
+            }
+        };
+
+        const stickyNav = () => {
+            if (window.pageYOffset > stickyThreshold) {
+                stickyHeader.classList.add("sticky");
+                mainArticles.style.paddingTop = '5.5rem';
+                signInToggle.style.opacity = '1'
+            } else {
+                stickyHeader.classList.remove("sticky");
+                mainArticles.style.paddingTop = '2rem';
+                if (!mobileSignInBtn) {
+                    signInToggle.style.opacity = '0'
+                } else signInToggle.style.opacity = '1'
+            }
+        };
+
+        window.addEventListener('resize', updateStickyHeader);
+        updateStickyHeader();
+
+        window.onscroll = function () {
+            stickyNav();
+        };
+
+        return () => {
+            window.removeEventListener('resize', updateStickyHeader);
+        };
+    }, []);
+
 
     // Search Button open modal function
     const handleSearchClick = (e) => {
@@ -75,7 +121,6 @@ export const Header = () => {
 
     const handleMouseLeave = () => {
         setCurrentCategory(null);
-        console.log('mouse out')
     };
 
     // Mobile Menu toggle show/hide
@@ -88,24 +133,39 @@ export const Header = () => {
             <div className="header-top">
                 <a href="https://www.amazon.com/Deal-Week/s?k=Deal+of+The+Week">Deals of the week</a>
                 <p>{formattedDateTime}</p>
-                <a href="#">Sources</a>
-                <button className='white-btn'>Sign In</button>
+                {formSubmitted ?
+                    <p>Signed in</p> :
+                    <a href="#">Sources</a>}
             </div>
 
             <div className="gradient-border"></div>
 
             <div className="header-main">
-                <div className="toggle sign-in-toggle">
-                    <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"></path></svg>
-                    <svg className='hidden' stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                <div className="toggle sign-in-toggle" onClick={() => setMobileSignInBtn(!mobileSignInBtn)}>
+                    {!mobileSignInBtn ? (<>
+                        <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 16 16" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"></path></svg>
+                        <svg className='hidden' stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                    </>) : (
+                        <svg stroke="#8e8e8e" fill="#8e8e8e" strokeWidth="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"></path></svg>
+                    )}
                 </div>
+
+                {mobileSignInBtn && <div className='sign-in-modal'>
+                    <Link to='/signup'><p onClick={() => setMobileSignInBtn(false)}>Sign up</p></Link>
+                    <Link to='/signup'><p onClick={() => setMobileSignInBtn(false)}>Log in</p></Link>
+                </div>}
                 <Weather />
                 <div className="logo">
-                    <img src="../../public/assets/logo.webp" alt="Day Old News logo" />
+                    <Link to='/'><img src="../../public/assets/logo.webp" alt="Day Old News logo" /></Link>
                 </div>
 
                 <div className="btn-container">
-                    <Link to='/signup'><button className="primary-btn">Sign Up</button> </Link>
+                    {formSubmitted ?
+                        <>
+                            <Link to='/signup'><button className='user-btn'><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 16 16" height="1.4em" width="1.4em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clipRule="evenodd"></path></svg>{userName}</button> </Link>
+                        </> :
+                        <Link to='/signup'><button className="primary-btn">Sign Up</button> </Link>
+                    }
                 </div>
 
                 <div className="menu-toggle toggle" onClick={() => handleMenuToggle()}>

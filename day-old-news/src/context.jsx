@@ -15,7 +15,19 @@ const AppProvider = ({ children }) => {
     const [apiDetailsCallMade, setApiDetailsCallMade] = useState(false);
     const [categoryColor, setCategoryColor] = useState('')
     const [categoryName, setCategoryName] = useState('')
+    const [userName, setUserName] = useState('')
+    const [formSubmitted, setFormSubmitted] = useState(false)
+    const [userLocation, setUserLocation] = useState('')
 
+    // check for local Storage
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        setUserName(storedUser);
+        const storedLocation = JSON.parse(localStorage.getItem("location"));
+        setUserLocation(storedLocation)
+        const existingUser = JSON.parse(localStorage.getItem("existingUser"))
+        setFormSubmitted(existingUser)
+    }, []);
 
     // mobile menu toggle
     const toggleMobileNav = () => {
@@ -163,7 +175,10 @@ const AppProvider = ({ children }) => {
             detailsArticles, setDetailsArticles,
             apiDetailsCallMade, setApiDetailsCallMade,
             fetchPageArticles, categoryColor, setCategoryColor,
-            categoryName, setCategoryName
+            categoryName, setCategoryName,
+            userName, setUserName,
+            formSubmitted, setFormSubmitted,
+            userLocation, setUserLocation
         }}>
             {children}
         </AppContext.Provider>

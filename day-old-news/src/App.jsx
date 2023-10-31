@@ -16,11 +16,14 @@ import { AlsoLike } from './components/AlsoLike'
 import { InDetail } from './pages/in-detail'
 import { NotFound } from './pages/NotFound'
 import { SignUp } from './pages/SignUp'
+import ScrollToTop from './components/ScrollToTop'
+
 
 function App() {
   return (
     <>
       <Header />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={
           <>

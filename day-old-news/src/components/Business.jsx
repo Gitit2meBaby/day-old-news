@@ -8,6 +8,7 @@ export const Business = () => {
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
 
+    // observe when getting close to make API call
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('business');
@@ -20,23 +21,17 @@ export const Business = () => {
     // check for API returns without a description
     const filteredArticles = (localCategoryArticles.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    const handleClick = (keyword) => {
-        fetchCategoryArticles(keyword)
-    }
-
+    // call API with link keyword (initially set to business)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
             const response = await fetch(url);
             const categoryData = await response.json();
             setLocalCategoryArticles(categoryData);
-            console.log('business-fetched')
         } catch (error) {
             console.log(error);
         }
-
     }, []);
-
 
     return (
         <section ref={targetElement} className='category-container'>
@@ -47,13 +42,13 @@ export const Business = () => {
                 </div>
                 <div className="category-nav">
                     <ul>
-                        <li onClick={() => handleClick('economy')}>Economy</li>
-                        <li onClick={() => handleClick('corporate')}>Corporate</li>
-                        <li onClick={() => handleClick('investment')}>Investment</li>
-                        <li onClick={() => handleClick('trade')}>Trade</li>
-                        <li onClick={() => handleClick('retail')}>Retail</li>
-                        <li onClick={() => handleClick('bitcoin')}>Bitcoin</li>
-                        <li onClick={() => handleClick('marketing')}>Marketing</li>
+                        <li onClick={() => fetchCategoryArticles('economy')}>Economy</li>
+                        <li onClick={() => fetchCategoryArticles('corporate')}>Corporate</li>
+                        <li onClick={() => fetchCategoryArticles('investment')}>Investment</li>
+                        <li onClick={() => fetchCategoryArticles('trade')}>Trade</li>
+                        <li onClick={() => fetchCategoryArticles('retail')}>Retail</li>
+                        <li onClick={() => fetchCategoryArticles('bitcoin')}>Bitcoin</li>
+                        <li onClick={() => fetchCategoryArticles('marketing')}>Marketing</li>
                     </ul>
                 </div>
             </header>
@@ -61,7 +56,6 @@ export const Business = () => {
             <section className='category-articles'>
                 {filteredArticles &&
                     filteredArticles.map((category, index) => {
-
                         if (index === 0) {
                             return (
                                 <article className='category-featured' key={category.id}>

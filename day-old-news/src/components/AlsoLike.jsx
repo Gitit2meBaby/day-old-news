@@ -7,6 +7,7 @@ export const AlsoLike = () => {
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
 
+    // observe when getting close to make API call
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('popular');
@@ -19,21 +20,16 @@ export const AlsoLike = () => {
     // check for API returns without a description
     const filteredArticles = (popularHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    const handleClick = (keyword) => {
-        fetchCategoryArticles(keyword)
-    }
-
+    // Api call using keyword (hardcoded as popular initially)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
             const response = await fetch(url);
             const categoryData = await response.json();
             setPopularHeadlines(categoryData);
-            console.log('popular-fetched')
         } catch (error) {
             console.log(error);
         }
-
     }, []);
 
     return (
@@ -43,8 +39,6 @@ export const AlsoLike = () => {
                     <h2>You may also like</h2>
                 </div>
             </header>
-
-
 
             <section className='popular-articles'>
                 <h3>MOST READ</h3>
@@ -71,28 +65,28 @@ export const AlsoLike = () => {
                 <h3 className='mob-title'>TRENDING TOPICS</h3>
 
                 <div className="hot-topics">
-                    <div onClick={() => handleClick('bushfires')}>
+                    <div onClick={() => fetchCategoryArticles('bushfires')}>
                         <p>Australian Bushfires</p>
                     </div>
-                    <div onClick={() => handleClick('living-cost')}>
+                    <div onClick={() => fetchCategoryArticles('living-cost')}>
                         <p>Cost of Living</p>
                     </div>
-                    <div onClick={() => handleClick('bank')}>
+                    <div onClick={() => fetchCategoryArticles('bank')}>
                         <p>Reserve Bank</p>
                     </div>
-                    <div onClick={() => handleClick('cricket')}>
+                    <div onClick={() => fetchCategoryArticles('cricket')}>
                         <p>Cricket Live Scores</p>
                     </div>
-                    <div onClick={() => handleClick('tennis')}>
+                    <div onClick={() => fetchCategoryArticles('tennis')}>
                         <p>Tennis Live Scores</p>
                     </div>
-                    <div onClick={() => handleClick('taylor')}>
+                    <div onClick={() => fetchCategoryArticles('taylor')}>
                         <p>Taylor Swift</p>
                     </div>
-                    <div onClick={() => handleClick('bunnings')}>
+                    <div onClick={() => fetchCategoryArticles('bunnings')}>
                         <p>Bunnings</p>
                     </div>
-                    <div onClick={() => handleClick('kayo')}>
+                    <div onClick={() => fetchCategoryArticles('kayo')}>
                         <p>Kayo</p>
                     </div>
                 </div>

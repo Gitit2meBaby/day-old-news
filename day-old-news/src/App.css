@@ -1,7 +1,225 @@
-.signup-page {
+.info {
   height: 90dvh;
+  background-color: rgb(237, 237, 237);
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
+.info p:last-of-type {
+  text-decoration: underline;
+}
+
+.registration-box {
+  background-color: white;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 0.2rem;
+  width: 300px;
+}
+
+.box-header {
+  background-color: black;
+  text-align: center;
+}
+.box-header p {
+  color: white;
+  padding: 0.2rem;
+  font-size: 0.8rem;
+}
+
+.box-main {
+  padding: 2rem;
+  align-items: center;
+  gap: 2rem;
+}
+.box-main p {
+  color: black;
+  text-decoration: underline;
+}
+.box-main button {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.2rem;
+}
+.box-main .tick-boxes div {
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+.box-main .tick-boxes div p {
+  text-decoration: none;
+  color: gray;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  padding: 2rem 6rem 6rem 6rem;
+  gap: 2rem;
+}
+
+.duplicate-container {
+  align-items: center;
+}
+
+.duplicate-box {
+  width: 400px;
+  padding-bottom: 1rem;
+}
+
+.totals {
+  width: 100%;
+}
+.totals p {
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.terms {
+  width: 400px;
+  padding-top: 1.5rem;
+}
+.terms p {
+  color: rgb(185, 185, 185);
+  text-decoration: underline;
+}
+
+.form {
+  border-top: 7px solid rgb(240, 240, 240);
+  width: 400px;
+  gap: 0.2rem;
+  margin-top: 1rem;
+}
+.form p {
+  color: black;
+}
+.form p span {
+  text-decoration: underline;
+}
+.form h2 {
+  font-size: 1.2rem;
+}
+.form button {
+  padding: 1rem;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+form input {
+  width: 100%;
+  padding: 1rem;
+}
+form .name {
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  gap: 1rem;
+}
+
+.signup-fineprint {
+  gap: 1rem;
+}
+.signup-fineprint a,
+.signup-fineprint p {
+  font-size: 0.9rem;
+}
+.signup-fineprint a {
+  color: black;
+  text-decoration: underline;
+}
+
+.terms-agree-container {
+  display: flex;
+  gap: 0.5rem;
+}
+.terms-agree-container p {
+  font-size: 0.8rem;
+  color: gray;
+}
+.terms-agree-container a {
+  font-size: 0.8rem;
+}
+
+.privacy-container {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.privacy-title p {
+  font-size: 1rem;
+  margin-right: auto;
+  padding-left: 1rem;
+}
+
+.privacy-dropdown {
+  padding-top: 1rem;
+}
+
+.placeholder-red::-moz-placeholder {
+  color: red;
+}
+
+.placeholder-red::placeholder {
+  color: red;
+}
+
+@media screen and (max-width: 1000px) {
+  .details {
+    display: flex;
+    flex-direction: column;
+  }
+  .details div:last-child {
+    display: flex;
+    justify-content: center;
+  }
+  .privacy-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .terms p {
+    padding: 0 2rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .details {
+    padding: 1rem;
+    gap: 2rem;
+  }
+  .duplicate-box {
+    width: 90vw;
+  }
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  border-radius: 0.3rem;
+  padding: 4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, 0.6);
+}
+.modal h2 {
+  font-size: 1.5rem;
+}
+.modal button {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 320px;
+    padding: 4rem 2rem;
+  }
+}
 :root {
   font-family: "Roboto", sans-serif;
 }
@@ -25,18 +243,18 @@ a {
   align-items: center;
 }
 
-.footer-links, .footer-top .social, .details-article, .popular-headlines, .category-header > div, .type-title, .mob-search, .searchbox, .header-links, .weather {
+.footer-links, .footer-top .social, .details-article, .popular-headlines, .category-header > div, .type-title, .mob-search, .searchbox, .header-links, .weather, .user-btn, .info, .box-main .tick-boxes div {
   display: flex;
   align-items: center;
 }
 
-.footer-top, .category-nav ul, .category-header, .mobile-nav .mob-nav-item, .header-nav, .header-main, .header-top {
+.footer-top, .category-nav ul, .category-header, .mobile-nav .mob-nav-item, .header-nav, .header-main, .header-top, .totals, .terms, .privacy-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.not-found, .footer-nav .nav-item:last-of-type, .details-page, .featured, .main-articles {
+.not-found, .footer-nav .nav-item:last-of-type, .details-page, .featured, .main-articles, .box-main, .duplicate-container, .form, .signup-fineprint, .modal {
   display: flex;
   flex-direction: column;
 }
@@ -64,6 +282,8 @@ a {
 
 .header-main {
   padding: 1rem 6rem;
+  position: relative;
+  background-color: white;
 }
 
 .primary-btn {
@@ -72,6 +292,16 @@ a {
   border: none;
   border-radius: 0.3rem;
   padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.user-btn {
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(113, 113, 113);
   cursor: pointer;
 }
 
@@ -102,6 +332,7 @@ a {
   padding: 0rem 3rem;
   border-top: 1px solid #d1d0d0;
   border-bottom: 1px solid #d1d0d0;
+  background-color: white;
 }
 
 .header-links {
@@ -116,10 +347,6 @@ a {
 }
 .header-links p:hover {
   color: white;
-}
-
-.header-nav:last-child {
-  position: relative;
 }
 
 .search-container {
@@ -276,11 +503,34 @@ a {
   display: none;
 }
 
+.sign-in-toggle {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sign-in-modal {
+  position: absolute;
+  top: 4rem;
+  left: 1.4rem;
+  background-color: white;
+  border-radius: 0.1rem;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  width: 220px;
+}
+.sign-in-modal p {
+  padding: 0.5rem;
+}
+
 .mobile-nav {
   opacity: 0;
+  position: absolute;
+  top: 7.2rem;
   transform: translateX(100%);
   transition: opacity 0.5s, transform 1s;
   border-top: 1px solid #040404;
+  background-color: white;
+  width: 95vw;
 }
 .mobile-nav .mob-nav-item {
   padding: 1rem 2rem;
@@ -330,8 +580,7 @@ a {
   .toggle {
     display: flex;
   }
-  .header-top p,
-  .header-top a:last-of-type,
+  .header-top p:first-of-type,
   .btn-container,
   .header-nav,
   .weather {
@@ -349,13 +598,13 @@ a {
     padding: 0.5rem 1.4rem;
     border-bottom: 1px solid #040404;
   }
-  .weather:nth-of-type(1) {
+  .weather:first-child {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #d1d0d0;
     padding: 0.5rem 1rem;
   }
-  .weather:nth-of-type(1) img {
+  .weather:first-child img {
     margin-left: auto;
   }
 }
@@ -1289,4 +1538,14 @@ footer {
 .rotate {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + body {
+  padding-top: 102px;
 }/*# sourceMappingURL=App.css.map */

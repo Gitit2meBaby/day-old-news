@@ -64,6 +64,12 @@
     display: grid;
     grid-template-columns: 50% 1fr;
     padding: 2rem 6rem 6rem 6rem;
+    gap: 2rem
+}
+
+.duplicate-container {
+    @extend %column;
+    align-items: center;
 }
 
 .duplicate-box {
@@ -181,4 +187,75 @@ form {
 
 .privacy-dropdown {
     padding-top: 1rem;
+}
+
+.placeholder-red::placeholder {
+    color: red;
+}
+
+@media screen and (max-width: 1000px) {
+    .details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .details div:last-child {
+        display: flex;
+        justify-content: center;
+    }
+
+    .privacy-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .terms p {
+        padding: 0 2rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .details {
+        padding: 1rem;
+        gap: 2rem;
+
+    }
+
+    .duplicate-box {
+        width: 90vw;
+    }
+}
+
+// MODAL
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 400px;
+    height: 300px;
+    border-radius: .3rem;
+    padding: 4rem;
+    @extend %column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    box-shadow: 0 0 1000px 1000px rgba(0, 0, 0, .6);
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .modal {
+        width: 320px;
+        padding: 4rem 2rem;
+    }
 }
