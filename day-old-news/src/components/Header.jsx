@@ -1,5 +1,6 @@
 import { useGlobalContext } from '../context';
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Weather } from './Weather';
 import { DropdownMenu } from './DropdownMenu'
 import links from '../../links';
@@ -104,7 +105,7 @@ export const Header = () => {
                 </div>
 
                 <div className="btn-container">
-                    <button className="primary-btn">Sign Up</button>
+                    <Link to='/signup'><button className="primary-btn">Sign Up</button> </Link>
                 </div>
 
                 <div className="menu-toggle toggle" onClick={() => handleMenuToggle()}>
