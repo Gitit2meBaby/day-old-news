@@ -8,7 +8,7 @@ import { Entertainment } from './components/Entertainment'
 import { RealEstate } from './components/RealEstate'
 import { Health } from './components/Health'
 import { Science } from './components/Science'
-import { BannerAdd } from './components/BannerAdd'
+import { Banner } from './components/Banner'
 import { Technology } from './components/Technology'
 import { Sports } from './components/Sports'
 import { Footer } from './components/Footer'
@@ -36,7 +36,7 @@ function App() {
             <RealEstate />
             <Health />
             <Science />
-            <BannerAdd />
+            <Banner />
             <Technology />
             <Sports />
             <AlsoLike />

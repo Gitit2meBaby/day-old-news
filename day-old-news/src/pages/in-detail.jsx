@@ -31,6 +31,7 @@ export const InDetail = () => {
                 filteredArticles.map((category) => {
                     return (
                         <article className='details-article' key={category.id}>
+                            <p className="mob-details-src" style={{ color: categoryColor }}>{category.source.name}</p>
                             <a href={category.url}>
                                 <img src={category.urlToImage} alt={category.title} />
                             </a>
