@@ -8,6 +8,7 @@ export const Technology = () => {
 
     const targetElement = useRef(null);
 
+    // check proximity to make API call
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('technology');
@@ -20,24 +21,17 @@ export const Technology = () => {
     // check for API returns without a description
     const filteredArticles = (technologyHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    const handleClick = (keyword) => {
-        fetchCategoryArticles(keyword)
-    }
-
-
+    // fetch API with endpoint according to link title (initial hardcoded technology)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
             const response = await fetch(url);
             const categoryData = await response.json();
             setTechnologyHeadlines(categoryData);
-            console.log('tech fetched')
         } catch (error) {
             console.log(error);
         }
-
     }, []);
-
 
     return (
         <section ref={targetElement} className='category-container'>
@@ -48,11 +42,11 @@ export const Technology = () => {
                 </div>
                 <div className="category-nav">
                     <ul>
-                        <li onClick={() => handleClick('movies')}>Movies</li>
-                        <li onClick={() => handleClick('celebrity')}>Celebrity</li>
-                        <li onClick={() => handleClick('music')}>Music</li>
-                        <li onClick={() => handleClick('books')}>Books</li>
-                        <li onClick={() => handleClick('awards')}>Awards</li>
+                        <li onClick={() => fetchCategoryArticles('movies')}>Movies</li>
+                        <li onClick={() => fetchCategoryArticles('celebrity')}>Celebrity</li>
+                        <li onClick={() => fetchCategoryArticles('music')}>Music</li>
+                        <li onClick={() => fetchCategoryArticles('books')}>Books</li>
+                        <li onClick={() => fetchCategoryArticles('awards')}>Awards</li>
                     </ul>
                 </div>
             </header>

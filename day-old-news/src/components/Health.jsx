@@ -9,6 +9,7 @@ export const Health = () => {
 
     const targetElement = useRef(null);
 
+    // observe proximity to fetch before category appears
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('health');
@@ -21,10 +22,7 @@ export const Health = () => {
     // check for API returns without a description
     const filteredArticles = (healthHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    const handleClick = (keyword) => {
-        fetchCategoryArticles(keyword)
-    }
-
+    // call API according to keyword (hardcoded health initially)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
@@ -36,7 +34,6 @@ export const Health = () => {
         } catch (error) {
             console.log(error);
         }
-
     }, []);
 
     return (
@@ -48,11 +45,11 @@ export const Health = () => {
                 </div>
                 <div className="category-nav">
                     <ul>
-                        <li onClick={() => handleClick('fitness')}>Fitness</li>
-                        <li onClick={() => handleClick('lifestyle')}>Lifestyle</li>
-                        <li onClick={() => handleClick('diet')}>Diet</li>
-                        <li onClick={() => handleClick('beauty')}>Beauty</li>
-                        <li onClick={() => handleClick('relationships')}>Relationships</li>
+                        <li onClick={() => fetchCategoryArticles('fitness')}>Fitness</li>
+                        <li onClick={() => fetchCategoryArticles('lifestyle')}>Lifestyle</li>
+                        <li onClick={() => fetchCategoryArticles('diet')}>Diet</li>
+                        <li onClick={() => fetchCategoryArticles('beauty')}>Beauty</li>
+                        <li onClick={() => fetchCategoryArticles('relationships')}>Relationships</li>
                     </ul>
                 </div>
             </header>

@@ -7,6 +7,7 @@ export const Science = () => {
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
 
+    // observe proximity in order to fetch API
     const onIntersect = () => {
         if (!apiCallMade) {
             fetchCategoryArticles('science');
@@ -19,10 +20,7 @@ export const Science = () => {
     // check for API returns without a description
     const filteredArticles = (scienceHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
-    const handleClick = (keyword) => {
-        fetchCategoryArticles(keyword)
-    }
-
+    // API call with endpoint set initially 'science' but then with link title
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
             const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
@@ -33,9 +31,7 @@ export const Science = () => {
         } catch (error) {
             console.log(error);
         }
-
     }, []);
-
 
     return (
         <section ref={targetElement} className='category-container'>
@@ -46,10 +42,10 @@ export const Science = () => {
                 </div>
                 <div className="category-nav">
                     <ul>
-                        <li onClick={() => handleClick('technology')}>Technology</li>
-                        <li onClick={() => handleClick('innovation')}>Innovation</li>
-                        <li onClick={() => handleClick('environment')}>Environment</li>
-                        <li onClick={() => handleClick('gadgets')}>Gadgets</li>
+                        <li onClick={() => fetchCategoryArticles('technology')}>Technology</li>
+                        <li onClick={() => fetchCategoryArticles('innovation')}>Innovation</li>
+                        <li onClick={() => fetchCategoryArticles('environment')}>Environment</li>
+                        <li onClick={() => fetchCategoryArticles('gadgets')}>Gadgets</li>
                     </ul>
                 </div>
             </header>
@@ -57,7 +53,6 @@ export const Science = () => {
             <section className='category-articles'>
                 {filteredArticles &&
                     filteredArticles.map((category, index) => {
-
                         if (index === 0) {
                             return (
                                 <article className='category-featured' key={category.id}>

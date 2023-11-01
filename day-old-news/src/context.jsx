@@ -10,6 +10,29 @@ const AppProvider = ({ children }) => {
     const [headlines, setHeadlines] = useState([]);
     const [categoryArticles, setCategoryArticles] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [isMobileNavVisible, setIsMobileNavVisible] = useState(false);
+    const [detailsArticles, setDetailsArticles] = useState('')
+    const [apiDetailsCallMade, setApiDetailsCallMade] = useState(false);
+    const [categoryColor, setCategoryColor] = useState('')
+    const [categoryName, setCategoryName] = useState('')
+    const [userName, setUserName] = useState('')
+    const [formSubmitted, setFormSubmitted] = useState(false)
+    const [userLocation, setUserLocation] = useState('')
+
+    // check for local Storage
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        setUserName(storedUser);
+        const storedLocation = JSON.parse(localStorage.getItem("location"));
+        setUserLocation(storedLocation)
+        const existingUser = JSON.parse(localStorage.getItem("existingUser"))
+        setFormSubmitted(existingUser)
+    }, []);
+
+    // mobile menu toggle
+    const toggleMobileNav = () => {
+        setIsMobileNavVisible(!isMobileNavVisible);
+    };
 
     //searchbar in header function to pass state
     const updateSearchKeyword = (keyword) => {
@@ -85,6 +108,23 @@ const AppProvider = ({ children }) => {
         }, [targetElement, onIntersect, rootMargin]);
     }
 
+    // Api call for details page render
+    const fetchPageArticles = useCallback(async () => {
+        if (!apiDetailsCallMade && detailsArticles) {
+            try {
+                const url = `https://newsapi.org/v2/everything?q=${detailsArticles}&apiKey=c3f070d7c3164d759829cccd6c7308f0`;
+                const response = await fetch(url);
+                const categoryData = await response.json();
+                if (categoryData.articles && categoryData.articles.length > 0) {
+                    setDetailsArticles(categoryData);
+                }
+                setApiDetailsCallMade(true);
+                console.log('details-fetched', categoryData);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }, [detailsArticles, apiDetailsCallMade, setDetailsArticles]);
 
     // change the publishedAt integer into something nice
     function timeAgo(publishedDate) {
@@ -122,7 +162,24 @@ const AppProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ loading, setLoading, headlines, setHeadlines, fetchHeadlines, categoryArticles, setCategoryArticles, timeAgo, truncateText, fetchCategoryArticles, useIntersectionObserver, searchKeyword, updateSearchKeyword }}>
+        <AppContext.Provider value={{
+            loading, setLoading,
+            headlines, setHeadlines, fetchHeadlines,
+            categoryArticles, setCategoryArticles,
+            timeAgo, truncateText,
+            fetchCategoryArticles,
+            useIntersectionObserver,
+            searchKeyword, updateSearchKeyword,
+            toggleMobileNav,
+            isMobileNavVisible,
+            detailsArticles, setDetailsArticles,
+            apiDetailsCallMade, setApiDetailsCallMade,
+            fetchPageArticles, categoryColor, setCategoryColor,
+            categoryName, setCategoryName,
+            userName, setUserName,
+            formSubmitted, setFormSubmitted,
+            userLocation, setUserLocation
+        }}>
             {children}
         </AppContext.Provider>
     );

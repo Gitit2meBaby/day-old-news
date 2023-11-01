@@ -1,3 +1,7 @@
+import powell from '../../public/assets/powell.webp'
+import ticToc from '../../public/assets/tic-toc.webp'
+import expensiveHome from '../../public/assets/expensive-home.webp'
+
 export const RealEstate = () => {
     return (
 
@@ -19,7 +23,7 @@ export const RealEstate = () => {
                 </a>
                 <div className="secondary-content">
                     <a href='https://www.realestate.com.au/news/south-yarra-late-architect-allan-powells-house-rumoured-to-have-been-home-to-famous-racehorse-archer/?campaignType=external&campaignChannel=syndication&campaignName=ncacont&campaignContent=&campaignSource=newscomau&campaignPlacement=spa'>
-                        <img className='secondary-img' src='../../public/assets/powell.webp' alt="Late architect Allan Powells property" />
+                        <img className='secondary-img' src={powell} alt="Late architect Allan Powells property" />
                     </a>
                     <p>Late architect Allan Powell’s property has hit the market for the first time in 30 years, and there’s one big rumour attached to it.</p>
                 </div>
@@ -37,7 +41,7 @@ export const RealEstate = () => {
                 </a>
                 <div className="secondary-content">
                     <a href='https://www.realestate.com.au/news/onlyfans-stars-family-retreat-in-southern-highlands-listed-for-12m/?campaignType=external&campaignChannel=syndication&campaignName=ncacont&campaignContent=&campaignSource=newscomau&campaignPlacement=spa'>
-                        <img className='secondary-img' src='../../public/assets/tic-toc.webp' alt="Paris Ow-Yang" />
+                        <img className='secondary-img' src={ticToc} alt="Paris Ow-Yang" />
                     </a>
                     <p>The Aussie chateau owned by the family of troubled OnlyFans model Paris Ow-Yang is for sale, less than two years after it last changed hands.</p>
                 </div>
@@ -55,7 +59,7 @@ export const RealEstate = () => {
                 </a>
                 <div className="secondary-content">
                     <a href='https://www.realestate.com.au/news/new-yorkbased-ad-man-david-droga-bought-45m-beachfront-as-his-holiday-home/?campaignType=external&campaignChannel=syndication&campaignName=ncacont&campaignContent=&campaignSource=newscomau&campaignPlacement=spa'>
-                        <img className='secondary-img' src='../../public/assets/expensive-home.webp' alt="$45 million bungalow" />
+                        <img className='secondary-img' src={expensiveHome} alt="$45 million bungalow" />
                     </a>
                     <p>The advertising guru who paid $45 million for the old bungalow that is Australia’s most expensive oceanfront home has revealed a candid confession behind the buy.</p>
                 </div>
