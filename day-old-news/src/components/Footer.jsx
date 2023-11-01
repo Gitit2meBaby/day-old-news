@@ -1,3 +1,7 @@
+import logo from "../../public/assets/logo.webp"
+import appleApp from "../../public/assets/apple-app-store.webp"
+import googleApp from "../../public/assets/google-play.png"
+
 export const Footer = () => {
 
     function scrollToTop() {
@@ -21,7 +25,7 @@ export const Footer = () => {
         <footer>
             <div className="footer-top" onClick={() => scrollToTop()}>
                 <button className="scroll-btn"><svg stroke="#fff" fill="currentColor" strokeWidth="1" viewBox="0 0 16 16" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.646 4.646a.5.5 0 01.708 0l6 6a.5.5 0 01-.708.708L8 5.707l-5.646 5.647a.5.5 0 01-.708-.708l6-6z" clipRule="evenodd"></path></svg></button>
-                <img src="../../public/assets/logo.webp" alt="day old news logo" />
+                <img src={logo} alt="day old news logo" />
 
                 <div className="social">
                     <div>
@@ -110,8 +114,8 @@ export const Footer = () => {
                         <h3>Our Apps</h3>
                     </div>
                     <div>
-                        <img src="../../public/assets/apple-app-store.webp" alt="apple app store download link" />
-                        <img src="../../public/assets/google-play.png" alt="get it on google play app download link" />
+                        <img src={appleApp} alt="apple app store download link" />
+                        <img src={googleApp} alt="get it on google play app download link" />
                     </div>
                 </div>
             </div>
