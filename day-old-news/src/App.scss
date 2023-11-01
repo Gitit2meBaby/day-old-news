@@ -11,6 +11,7 @@
 
 body {
     margin: 0;
+    overflow-x: hidden;
 }
 
 a {
@@ -473,7 +474,7 @@ $border: 1px solid $light-gray;
 
     #popClose {
         position: relative;
-        right: -92vw;
+        right: -87vw;
         bottom: -2.4rem;
         cursor: pointer;
     }
@@ -1110,17 +1111,24 @@ h2:hover {
 
 // BANNER ADD 
 .banner-container {
-    padding: 2rem 6rem;
     height: 20vh;
+    @extend %centered;
 
     img {
-        display: block;
+        display: flex;
+        max-width: 80vw;
     }
 }
 
 .big-btn {
     font-size: 1.5rem;
     padding: 0.8rem 1.5rem;
+}
+
+@media screen and (max-width: 700px) {
+    .banner-container {
+        display: none;
+    }
 }
 
 // VIDEO 

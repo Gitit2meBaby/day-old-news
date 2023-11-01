@@ -231,13 +231,14 @@ form .name {
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 a {
   text-decoration: none;
 }
 
-.toggle {
+.banner-container, .toggle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -633,7 +634,7 @@ a {
   }
   #popClose {
     position: relative;
-    right: -92vw;
+    right: -87vw;
     bottom: -2.4rem;
     cursor: pointer;
   }
@@ -1168,11 +1169,11 @@ h2:hover {
 }
 
 .banner-container {
-  padding: 2rem 6rem;
   height: 20vh;
 }
 .banner-container img {
-  display: block;
+  display: flex;
+  max-width: 80vw;
 }
 
 .big-btn {
@@ -1180,6 +1181,11 @@ h2:hover {
   padding: 0.8rem 1.5rem;
 }
 
+@media screen and (max-width: 700px) {
+  .banner-container {
+    display: none;
+  }
+}
 .video-container {
   padding-top: 4rem;
 }
