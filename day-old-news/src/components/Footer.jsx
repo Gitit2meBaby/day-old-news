@@ -1,6 +1,7 @@
 import logo from "../../public/assets/logo.webp"
 import appleApp from "../../public/assets/apple-app-store.webp"
 import googleApp from "../../public/assets/google-play.png"
+import newsAPI from "../../public/assets/newsAPI.webp"
 
 export const Footer = () => {
 
@@ -117,6 +118,14 @@ export const Footer = () => {
                         <img src={appleApp} alt="apple app store download link" />
                         <img src={googleApp} alt="get it on google play app download link" />
                     </div>
+                </div>
+            </div>
+
+            <div className="api-thanks">
+                <h2>A big thanks to the free API's used on this project</h2>
+                <div className="api-logos">
+                    <a href="https://www.weatherapi.com/" title="Free Weather API"><img src='//cdn.weatherapi.com/v4/images/weatherapi_logo.png' alt="Weather data by WeatherAPI.com" border="0" /></a>
+                    <a href="https://newsapi.org/"><img src={newsAPI} alt="newsAPI logo" /></a>
                 </div>
             </div>
 
