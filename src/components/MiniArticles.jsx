@@ -34,7 +34,7 @@ export const MiniArticles = () => {
                 {filteredArticles && filteredArticles[4] && (
                     <article key={filteredArticles[4].id} className='mini-article'>
                         <a href={filteredArticles[4].url}>
-                            <img className='secondary-img' src={filteredArticles[4].urlToImage} alt={filteredArticles[4].title} />
+                            <img className='secondary-img' src={filteredArticles[4].image} alt={filteredArticles[4].title} />
                             <h2>{filteredArticles[4].title}</h2>
                         </a>
                     </article>
@@ -49,7 +49,7 @@ export const MiniArticles = () => {
                     return (
                         <article key={category.id} className='img-title-article'>
                             <a href={category.url}>
-                                <img className='secondary-img' src={category.urlToImage} alt={category.title} />
+                                <img className='secondary-img' src={category.image} alt={category.title} />
                                 <h2>{category.title}</h2>
                             </a>
                         </article>

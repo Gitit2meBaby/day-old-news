@@ -23,7 +23,7 @@ export const Sports = () => {
     // make API call according to link keyword (initially hardcoded to sports)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
-            const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setSportsHeadlines(categoryData);
@@ -61,7 +61,7 @@ export const Sports = () => {
                                         <p className='category-title'>{category.source.name}</p>
                                         <p className='time-text'>{timeAgo(category.publishedAt)}</p>
                                     </div>
-                                    <img src={category.urlToImage} alt={category.title} />
+                                    <img src={category.image} alt={category.title} />
                                     <a href={category.url}>
                                         <h2>{category.title}</h2>
                                     </a>
@@ -79,7 +79,7 @@ export const Sports = () => {
                                     </a>
                                     <div className="secondary-content">
                                         <a href={category.url}>
-                                            <img className='secondary-img' src={category.urlToImage} alt={category.title} />
+                                            <img className='secondary-img' src={category.image} alt={category.title} />
                                         </a>
                                         <p>{truncateText(category.description, 90)}</p>
                                     </div>

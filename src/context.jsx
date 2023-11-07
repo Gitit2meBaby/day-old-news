@@ -3,7 +3,16 @@ import { useCallback } from 'react';
 
 const AppContext = React.createContext();
 
-const topHeadlinesUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=c3f070d7c3164d759829cccd6c7308f0';
+// const topHeadlinesUrl = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=c3f070d7c3164d759829cccd6c7308f0';
+
+// const topHeadlinesUrl = 'http://localhost:5000/api/top-headlines';
+
+// url = 'https://gnews.io/api/v4/top-headlines?category=' + category + '&lang=en&country=us&max=10&apikey=' + apikey;
+
+const topHeadlinesUrl = 'https://gnews.io/api/v4/search?q=general&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076'
+
+// url = 'https://gnews.io/api/v4/search?q=general&lang=en&country=us&max=10&apikey=apikey=8511c44e5027a4261d0d4304f5dab076';
+
 
 const AppProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
@@ -49,7 +58,9 @@ const AppProvider = ({ children }) => {
     const fetchHeadlines = useCallback(async (searchKeyword) => {
         setLoading(true);
         try {
-            const response = await fetch(searchKeyword ? `https://newsapi.org/v2/everything?q=${searchKeyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0` : topHeadlinesUrl);
+            const response = await fetch(searchKeyword ? `https://gnews.io/api/v4/search?q=${searchKeyword}&lang=en&country=us&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+                : topHeadlinesUrl);
+
             const headlineData = await response.json();
             setHeadlines(headlineData);
             setLoading(false);
@@ -62,7 +73,7 @@ const AppProvider = ({ children }) => {
     //API call for the miniArticles that start at top of page (try to reuse this function throughout as it works from a keyword)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
-            const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setCategoryArticles(categoryData);
@@ -112,7 +123,7 @@ const AppProvider = ({ children }) => {
     const fetchPageArticles = useCallback(async () => {
         if (!apiDetailsCallMade && detailsArticles) {
             try {
-                const url = `https://newsapi.org/v2/everything?q=${detailsArticles}&apiKey=c3f070d7c3164d759829cccd6c7308f0`;
+                const url = `https://gnews.io/api/v4/search?q=${detailsArticles}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`;
                 const response = await fetch(url);
                 const categoryData = await response.json();
                 if (categoryData.articles && categoryData.articles.length > 0) {

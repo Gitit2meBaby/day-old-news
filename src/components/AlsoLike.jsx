@@ -23,7 +23,7 @@ export const AlsoLike = () => {
     // Api call using keyword (hardcoded as popular initially)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
-            const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=c3f070d7c3164d759829cccd6c7308f0`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setPopularHeadlines(categoryData);
@@ -100,7 +100,7 @@ export const AlsoLike = () => {
                                 return (
                                     <article key={category.id} className='popular-thumbnail'>
                                         <a href={category.url}>
-                                            <img className='secondary-img' src={category.urlToImage} alt={category.title} />
+                                            <img className='secondary-img' src={category.image} alt={category.title} />
                                             <h2>{category.title}</h2>
                                         </a>
                                     </article>
