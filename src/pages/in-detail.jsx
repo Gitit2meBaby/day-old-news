@@ -33,7 +33,7 @@ export const InDetail = () => {
                         <article className='details-article' key={category.id}>
                             <p className="mob-details-src" style={{ color: categoryColor }}>{category.source.name}</p>
                             <a href={category.url}>
-                                <img src={category.urlToImage} alt={category.title} />
+                                <img src={category.image} alt={category.title} />
                             </a>
                             <div className='details-content'>
                                 <p style={{ color: categoryColor }}>{category.source.name}</p>

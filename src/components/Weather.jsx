@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 
 export const Weather = () => {
     const apiKey = '761d68c7eebd48d689071945232507';
-    const baseUrl = 'http://api.weatherapi.com/v1';
+    const baseUrl = 'https://api.weatherapi.com/v1';
     const endpoint = '/forecast.json';
 
     const { userLocation, setUserLocation } = useGlobalContext();

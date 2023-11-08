@@ -21,7 +21,7 @@ export const Articles = () => {
                             return (
                                 <article className='featured' key={headline.id}>
                                     <p className='bold-red'>BREAKING</p>
-                                    <img className='featured-img' src={headline.urlToImage} alt={headline.title} />
+                                    <img className='featured-img' src={headline.image} alt={headline.title} />
                                     <a href={headline.url}>
                                         <h2>{headline.title}</h2>
                                     </a>
@@ -43,7 +43,7 @@ export const Articles = () => {
                                     </a>
                                     <div className="secondary-content">
                                         <a href={headline.url}>
-                                            <img className='secondary-img' src={headline.urlToImage} alt={headline.title} />
+                                            <img className='secondary-img' src={headline.image} alt={headline.title} />
                                         </a>
                                         <p>{truncatedText}</p>
                                     </div>
@@ -77,7 +77,7 @@ export const Articles = () => {
                                 </a>
                                 <div className="secondary-content">
                                     <a href={headline.url}>
-                                        <img className='secondary-img' src={headline.urlToImage} alt={headline.title} />
+                                        <img className='secondary-img' src={headline.image} alt={headline.title} />
                                     </a>
                                     <p>{truncatedText}</p>
                                 </div>
