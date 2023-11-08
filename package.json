@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "day-old-news",
   "private": true,
   "version": "0.0.0",
@@ -25,9 +24,5 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "sass": "^1.69.4",
     "vite": "^4.5.0"
-=======
-  "dependencies": {
-    "react-router-dom": "^6.17.0"
->>>>>>> ca357189ee66d19514862a4ea2767dc1643381c3
   }
 }
