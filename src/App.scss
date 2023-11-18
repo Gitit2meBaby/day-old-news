@@ -9,6 +9,7 @@
     font-size: 15px;
 }
 
+html,
 body {
     margin: 0;
     overflow-x: hidden;
@@ -1129,7 +1130,7 @@ h2:hover {
 
     img {
         display: flex;
-        max-width: 80vw;
+        max-width: 95vw;
     }
 }
 
@@ -1442,6 +1443,7 @@ footer {
         height: 50px;
         width: 50px;
         cursor: pointer;
+        @extend %centered;
     }
 
     .social {

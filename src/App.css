@@ -229,6 +229,7 @@ form .name {
   font-size: 15px;
 }
 
+html,
 body {
   margin: 0;
   overflow-x: hidden;
@@ -238,7 +239,7 @@ a {
   text-decoration: none;
 }
 
-.api-thanks, .banner-container, .toggle {
+.api-thanks, .footer-top .scroll-btn, .banner-container, .toggle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1186,7 +1187,7 @@ h2:hover {
 }
 .banner-container img {
   display: flex;
-  max-width: 80vw;
+  max-width: 95vw;
 }
 
 .big-btn {
