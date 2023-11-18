@@ -13,7 +13,7 @@ export const Weather = () => {
 
     //API call (initially hardcoded to Cairns)
     useEffect(() => {
-        const queryParams = `q=${locationDisplay}`;
+        const queryParams = `q=${userLocation}`;
         const apiUrl = `${baseUrl}${endpoint}?key=${apiKey}&${queryParams}`;
 
         fetch(apiUrl)
@@ -29,7 +29,7 @@ export const Weather = () => {
             .catch((error) => {
                 console.error(error);
             });
-    }, [locationDisplay]);
+    }, [userLocation]);
 
     // had to delay preload of user state from local storage
     useEffect(() => {

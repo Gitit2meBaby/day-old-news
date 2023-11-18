@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react'
 import { useGlobalContext } from '../context';
 
 export const Sports = () => {
-    const { truncateText, timeAgo, useIntersectionObserver } = useGlobalContext();
+    const { truncateText, timeAgo, useIntersectionObserver, userCountry } = useGlobalContext();
     const [sportsHeadlines, setSportsHeadlines] = useState([]);
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
@@ -23,7 +23,7 @@ export const Sports = () => {
     // make API call according to link keyword (initially hardcoded to sports)
     const fetchCategoryArticles = useCallback(async (keyword) => {
         try {
-            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setSportsHeadlines(categoryData);

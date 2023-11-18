@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 
 
 export const Health = () => {
-    const { truncateText, timeAgo, useIntersectionObserver } = useGlobalContext();
+    const { truncateText, timeAgo, useIntersectionObserver, userCountry } = useGlobalContext();
     const [healthHeadlines, setHealthHeadlines] = useState([]);
     const [apiCallMade, setApiCallMade] = useState(false);
 
@@ -23,9 +23,9 @@ export const Health = () => {
     const filteredArticles = (healthHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
     // call API according to keyword (hardcoded health initially)
-    const fetchCategoryArticles = useCallback(async (keyword) => {
+    const fetchCategoryArticles = useCallback(async (keyword, userCountry) => {
         try {
-            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setHealthHeadlines(categoryData);

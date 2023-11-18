@@ -17,14 +17,13 @@ const AppProvider = ({ children }) => {
     const [categoryName, setCategoryName] = useState('')
     const [userName, setUserName] = useState('')
     const [formSubmitted, setFormSubmitted] = useState(false)
-    const [userLocation, setUserLocation] = useState('')
+    const [userLocation, setUserLocation] = useState('cairns')
+    const [userCountry, setUserCountry] = useState('au')
 
     // check for local Storage
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         setUserName(storedUser);
-        const storedLocation = JSON.parse(localStorage.getItem("location"));
-        setUserLocation(storedLocation)
         const existingUser = JSON.parse(localStorage.getItem("existingUser"))
         setFormSubmitted(existingUser)
     }, []);
@@ -45,11 +44,27 @@ const AppProvider = ({ children }) => {
         }
     }, [searchKeyword]);
 
+    // API call to get IP address
+    useEffect(() => {
+        fetch("https://ipinfo.io/json?token=3ad5a90102373f")
+            .then(response => response.json())
+            .then(jsonResponse => {
+                // Extract data from the API response and set state accordingly
+                setUserLocation(jsonResponse.city);
+                setUserCountry(jsonResponse.country);
+                console.log(userCountry)
+            })
+            .catch(error => {
+                // Handle errors if the API call fails
+                console.error('Error fetching IP data:', error);
+            });
+    }, []);
+
     //API call for latest news to be displayed top of page
-    const fetchHeadlines = useCallback(async (searchKeyword) => {
+    const fetchHeadlines = useCallback(async (searchKeyword, userCountry) => {
         setLoading(true);
         try {
-            const response = await fetch(searchKeyword ? `https://gnews.io/api/v4/search?q=${searchKeyword}&lang=en&country=us&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const response = await fetch(searchKeyword ? `https://gnews.io/api/v4/search?q=${searchKeyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
                 : topHeadlinesUrl);
 
             const headlineData = await response.json();
@@ -59,29 +74,31 @@ const AppProvider = ({ children }) => {
             setLoading(false);
             console.log(error);
         }
-    }, []);
+    }, [userCountry]);
 
     //API call for the miniArticles that start at top of page (try to reuse this function throughout as it works from a keyword)
-    const fetchCategoryArticles = useCallback(async (keyword) => {
+    const fetchCategoryArticles = useCallback(async (keyword, userCountry) => {
         try {
-            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setCategoryArticles(categoryData);
         } catch (error) {
             console.log(error);
         }
-    }, []);
+    }, [userCountry]);
 
     //Wait for both to load before showing content
     useEffect(() => {
         const fetchAllData = async () => {
-            await Promise.all([fetchHeadlines(), fetchCategoryArticles('technology')]);
+            await Promise.all([fetchHeadlines(searchKeyword, userCountry, userLocation),
+            fetchCategoryArticles(userLocation, userCountry)]);
             setLoading(false);
         };
 
         fetchAllData();
-    }, [searchKeyword]);
+    }, [searchKeyword, userCountry]);
+
 
     //reusable interaction observer to put on subsequent API loads lower on the page
     const useIntersectionObserver = (targetElement, onIntersect, rootMargin = '-100px') => {
@@ -111,10 +128,10 @@ const AppProvider = ({ children }) => {
     }
 
     // Api call for details page render
-    const fetchPageArticles = useCallback(async () => {
+    const fetchPageArticles = useCallback(async (userCountry) => {
         if (!apiDetailsCallMade && detailsArticles) {
             try {
-                const url = `https://gnews.io/api/v4/search?q=${detailsArticles}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`;
+                const url = `https://gnews.io/api/v4/search?q=${detailsArticles}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`;
                 const response = await fetch(url);
                 const categoryData = await response.json();
                 if (categoryData.articles && categoryData.articles.length > 0) {
@@ -126,7 +143,15 @@ const AppProvider = ({ children }) => {
                 console.log(error);
             }
         }
-    }, [detailsArticles, apiDetailsCallMade, setDetailsArticles]);
+    }, [detailsArticles, apiDetailsCallMade, setDetailsArticles, userCountry]);
+
+    useEffect(() => {
+        if (userCountry && searchKeyword) {
+            fetchHeadlines(searchKeyword, userCountry);
+            fetchCategoryArticles('technology', userCountry);
+            console.log(userCountry);
+        }
+    }, [userCountry, searchKeyword]);
 
     // change the publishedAt integer into something nice
     function timeAgo(publishedDate) {
@@ -180,7 +205,8 @@ const AppProvider = ({ children }) => {
             categoryName, setCategoryName,
             userName, setUserName,
             formSubmitted, setFormSubmitted,
-            userLocation, setUserLocation
+            userLocation, setUserLocation,
+            userCountry,
         }}>
             {children}
         </AppContext.Provider>

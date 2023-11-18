@@ -2,7 +2,7 @@ import { useState, useCallback, useRef } from 'react'
 import { useGlobalContext } from '../context';
 
 export const Science = () => {
-    const { truncateText, timeAgo, useIntersectionObserver } = useGlobalContext();
+    const { truncateText, timeAgo, useIntersectionObserver, userCountry } = useGlobalContext();
     const [scienceHeadlines, setScienceHeadlines] = useState([]);
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
@@ -21,9 +21,9 @@ export const Science = () => {
     const filteredArticles = (scienceHeadlines.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
     // API call with endpoint set initially 'science' but then with link title
-    const fetchCategoryArticles = useCallback(async (keyword) => {
+    const fetchCategoryArticles = useCallback(async (keyword, userCountry) => {
         try {
-            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setScienceHeadlines(categoryData);

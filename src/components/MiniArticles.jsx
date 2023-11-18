@@ -1,7 +1,7 @@
 import { useGlobalContext } from '../context';
 
 export const MiniArticles = () => {
-    const { categoryArticles, timeAgo } = useGlobalContext();
+    const { categoryArticles, timeAgo, userLocation } = useGlobalContext();
 
     // check for API returns without a description
     const filteredArticles = (categoryArticles.articles || []).filter((article) => article.description !== null && article.description !== undefined);
@@ -9,7 +9,7 @@ export const MiniArticles = () => {
     return (
         <section className='mini-articles'>
             <div className="mini-article-title">
-                <h2>In Tech</h2>
+                <h2>In {userLocation}</h2>
             </div>
             <div className="heading-articles-container">
                 {filteredArticles &&

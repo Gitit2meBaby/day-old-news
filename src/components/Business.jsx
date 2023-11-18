@@ -3,7 +3,7 @@ import { useGlobalContext } from '../context';
 
 
 export const Business = () => {
-    const { truncateText, timeAgo, useIntersectionObserver } = useGlobalContext();
+    const { truncateText, timeAgo, useIntersectionObserver, userCountry } = useGlobalContext();
     const [localCategoryArticles, setLocalCategoryArticles] = useState([]);
     const [apiCallMade, setApiCallMade] = useState(false);
     const targetElement = useRef(null);
@@ -22,9 +22,9 @@ export const Business = () => {
     const filteredArticles = (localCategoryArticles.articles || []).filter((article) => article.description !== null && article.description !== undefined);
 
     // call API with link keyword (initially set to business)
-    const fetchCategoryArticles = useCallback(async (keyword) => {
+    const fetchCategoryArticles = useCallback(async (keyword, userCountry) => {
         try {
-            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=au&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
+            const url = `https://gnews.io/api/v4/search?q=${keyword}&lang=en&country=${userCountry}&max=10&apikey=8511c44e5027a4261d0d4304f5dab076`
             const response = await fetch(url);
             const categoryData = await response.json();
             setLocalCategoryArticles(categoryData);

@@ -1182,6 +1182,7 @@ h2:hover {
 
 .banner-container {
   height: 20vh;
+  margin: 2rem 0;
 }
 .banner-container img {
   display: flex;
